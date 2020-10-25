@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\Core">
+      <UniqueIdentifier>{f43535c4-2483-44da-83c8-1cdb15c40538}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Shaders">
+      <UniqueIdentifier>{24eccf11-2c17-4d93-b6ba-a8b1b842749c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Rendering">
+      <UniqueIdentifier>{624f8a26-939f-45e9-9d2e-267565e7e255}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Engine">
+      <UniqueIdentifier>{071a56c6-81c5-45d7-b8b9-4915d89d0931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Core">
+      <UniqueIdentifier>{f35cbd27-ec8b-4119-ae74-d3caccd552b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Engine">
+      <UniqueIdentifier>{e064cf59-8cea-4532-a092-1e5e7219e19b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Rendering">
+      <UniqueIdentifier>{4c59a710-a15c-4d43-9ec6-caef1ffb794f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Shaders">
+      <UniqueIdentifier>{8a2a4df8-419b-4c51-885d-8d953343ab2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Engine\Katamari">
+      <UniqueIdentifier>{5714d90e-c6ef-48a5-987d-caa82fd929c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Engine\Katamari">
+      <UniqueIdentifier>{5195d310-5f53-4435-b81f-80c85e34b169}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="d3dclass.cpp">
+      <Filter>Исходные файлы\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="systemclass.cpp">
+      <Filter>Исходные файлы\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="textureclass.cpp">
+      <Filter>Исходные файлы\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Исходные файлы\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="modelclass.cpp">
+      <Filter>Исходные файлы\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="inputclass.cpp">
+      <Filter>Исходные файлы\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="graphicsclass.cpp">
+      <Filter>Исходные файлы\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameobject.cpp">
+      <Filter>Исходные файлы\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="cameraclass.cpp">
+      <Filter>Исходные файлы\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="KataVictim.cpp">
+      <Filter>Исходные файлы\Engine\Katamari</Filter>
+    </ClCompile>
+    <ClCompile Include="Katamari.cpp">
+      <Filter>Исходные файлы\Engine\Katamari</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplane.cpp">
+      <Filter>Исходные файлы\Engine\Katamari</Filter>
+    </ClCompile>
+    <ClCompile Include="shadowshaderclass.cpp">
+      <Filter>Исходные файлы\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="depthshaderclass.cpp">
+      <Filter>Исходные файлы\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="rendertextureclass.cpp">
+      <Filter>Исходные файлы\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="lightclass.cpp">
+      <Filter>Исходные файлы\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleText.cpp">
+      <Filter>Исходные файлы\Engine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="d3dclass.h">
+      <Filter>Файлы заголовков\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="cameraclass.h">
+      <Filter>Файлы заголовков\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameobject.h">
+      <Filter>Файлы заголовков\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="graphicsclass.h">
+      <Filter>Файлы заголовков\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="inputclass.h">
+      <Filter>Файлы заголовков\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="modelclass.h">
+      <Filter>Файлы заголовков\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Файлы заголовков\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Файлы заголовков\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="systemclass.h">
+      <Filter>Файлы заголовков\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="textureclass.h">
+      <Filter>Файлы заголовков\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Katamari.h">
+      <Filter>Файлы заголовков\Engine\Katamari</Filter>
+    </ClInclude>
+    <ClInclude Include="KataVictim.h">
+      <Filter>Файлы заголовков\Engine\Katamari</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplane.h">
+      <Filter>Файлы заголовков\Engine\Katamari</Filter>
+    </ClInclude>
+    <ClInclude Include="shadowshaderclass.h">
+      <Filter>Файлы заголовков\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="depthshaderclass.h">
+      <Filter>Файлы заголовков\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="rendertextureclass.h">
+      <Filter>Файлы заголовков\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="lightclass.h">
+      <Filter>Файлы заголовков\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleText.h">
+      <Filter>Файлы заголовков\Engine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="color.vs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="color.ps">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="texture.vs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="texture.ps">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="packages.config" />
+    <None Include="light.vs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="light.ps">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="shadow.vs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="shadow.ps">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="depth.vs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="depth.ps">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Users\Владислав\Desktop\brick.tga">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="cube.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
