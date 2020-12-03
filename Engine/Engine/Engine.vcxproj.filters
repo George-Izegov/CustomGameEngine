@@ -102,11 +102,11 @@
     <ClCompile Include="ParticleSystem\particleshaderclass.cpp">
       <Filter>Исходные файлы\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleSystem\particlesystemclass.cpp">
-      <Filter>Исходные файлы\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="timerclass.cpp">
       <Filter>Исходные файлы\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem\ParticleEmitter.cpp">
+      <Filter>Исходные файлы\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -164,9 +164,6 @@
     <ClInclude Include="SimpleText.h">
       <Filter>Файлы заголовков\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleSystem\particlesystemclass.h">
-      <Filter>Файлы заголовков\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="ParticleSystem\particleshaderclass.h">
       <Filter>Файлы заголовков\Shaders</Filter>
     </ClInclude>
@@ -175,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="ParticleSystem\ParticleGlobals.h">
       <Filter>Файлы заголовков\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem\ParticleEmitter.h">
+      <Filter>Файлы заголовков\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,7 @@
 #include "lightclass.h"
 #include <DirectXMath.h>
 #include "SimpleText.h"
-#include "ParticleSystem/particlesystemclass.h"
+#include "ParticleSystem/ParticleEmitter.h"
 #include "timerclass.h"
 
 using namespace std;
@@ -30,8 +30,8 @@ private:
 	CameraClass* m_Camera;
 	LightClass* m_Light;
 	GraphicsClass* m_Graphics;
-	ParticleSystemClass* m_SmokeEmitter;
-	ParticleSystemClass* m_SnowEmitter;
+	ParticleEmitter* m_SmokeEmitter;
+	ParticleEmitter* m_SnowEmitter;
 	Gameplane* m_Gameplane;	
 	Katamari* m_Katamari;	
 	KataVictim* m_Katavictim;

@@ -160,7 +160,7 @@ void GraphicsClass::SetRenderable(Gameobject* go,ModelClass* renderable)
 	m_GameobjsPool.push_back(go);
 }
 
-void GraphicsClass::SetRenderableEmitter(ParticleSystemClass* emitter)
+void GraphicsClass::SetRenderableEmitter(ParticleEmitter* emitter)
 {
 	m_Emitters.push_back(emitter);
 }

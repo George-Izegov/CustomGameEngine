@@ -32,7 +32,7 @@ private:
 	float WaitTimeForSpawnParticle = 0.0f;
 };
 
-class ParticleSystemClass
+class ParticleEmitter
 {
 private:
 
@@ -52,9 +52,9 @@ private:
 	};
 
 public:
-	ParticleSystemClass();
-	ParticleSystemClass(const ParticleSystemClass&);
-	~ParticleSystemClass();
+	ParticleEmitter();
+	ParticleEmitter(const ParticleEmitter&);
+	~ParticleEmitter();
 
 	bool Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, WCHAR* textureFilename, Emitter& EmitterParameters);
 	void Shutdown();

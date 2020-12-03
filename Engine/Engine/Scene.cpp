@@ -146,7 +146,7 @@ bool Scene::Init(int sWidth, int sHeight, HWND hwnd)
 
 	
 	// Create the particle system object.
-	m_SmokeEmitter = new ParticleSystemClass;
+	m_SmokeEmitter = new ParticleEmitter;
 
 	Emitter Smoke;
 
@@ -173,7 +173,7 @@ bool Scene::Init(int sWidth, int sHeight, HWND hwnd)
 
 	m_Graphics->SetRenderableEmitter(m_SmokeEmitter);
 
-	m_SnowEmitter = new ParticleSystemClass;
+	m_SnowEmitter = new ParticleEmitter;
 
 	Emitter PinkSnow;
 

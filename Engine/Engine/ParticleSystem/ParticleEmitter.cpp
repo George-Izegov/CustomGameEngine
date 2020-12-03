@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename: particlesystemclass.cpp
 ////////////////////////////////////////////////////////////////////////////////
-#include "particlesystemclass.h"
+#include "ParticleEmitter.h"
 #include "ParticleConstants.h"
 
 inline float RandomVariance(float median, float variance)
@@ -11,7 +11,7 @@ inline float RandomVariance(float median, float variance)
 	return median - variance + (2.0f * fRange);
 }
 
-ParticleSystemClass::ParticleSystemClass()
+ParticleEmitter::ParticleEmitter()
 {
 	m_vertices = 0;
 	m_vertexBuffer = 0;
@@ -22,17 +22,17 @@ ParticleSystemClass::ParticleSystemClass()
 }
 
 
-ParticleSystemClass::ParticleSystemClass(const ParticleSystemClass& other)
+ParticleEmitter::ParticleEmitter(const ParticleEmitter& other)
 {
 }
 
 
-ParticleSystemClass::~ParticleSystemClass()
+ParticleEmitter::~ParticleEmitter()
 {
 }
 
 
-bool ParticleSystemClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, WCHAR* textureFilename, Emitter& EmitterParameters)
+bool ParticleEmitter::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, WCHAR* textureFilename, Emitter& EmitterParameters)
 {
 	bool result;
 
@@ -54,7 +54,7 @@ bool ParticleSystemClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* 
 }
 
 
-void ParticleSystemClass::Shutdown()
+void ParticleEmitter::Shutdown()
 {
 	// Release the buffers.
 	ShutdownBuffers();
@@ -62,7 +62,7 @@ void ParticleSystemClass::Shutdown()
 }
 
 
-void ParticleSystemClass::Render(ID3D11DeviceContext* deviceContext, Vector3 cameraPosition)
+void ParticleEmitter::Render(ID3D11DeviceContext* deviceContext, Vector3 cameraPosition)
 {
 	CreateEmitterWorldMatrix(cameraPosition);
 	// Put the vertex and index buffers on the graphics pipeline to prepare them for drawing.
@@ -72,13 +72,13 @@ void ParticleSystemClass::Render(ID3D11DeviceContext* deviceContext, Vector3 cam
 }
 
 
-int ParticleSystemClass::GetIndexCount()
+int ParticleEmitter::GetIndexCount()
 {
 	return m_indexCount;
 }
 
 
-bool ParticleSystemClass::InitializeBuffers(ID3D11Device* device, ID3D11DeviceContext* deviceContext)
+bool ParticleEmitter::InitializeBuffers(ID3D11Device* device, ID3D11DeviceContext* deviceContext)
 {
 	unsigned int* indices;
 	int i;
@@ -215,7 +215,7 @@ bool ParticleSystemClass::InitializeBuffers(ID3D11Device* device, ID3D11DeviceCo
 }
 
 
-void ParticleSystemClass::ShutdownBuffers()
+void ParticleEmitter::ShutdownBuffers()
 {
 	// Release the index buffer.
 	if(m_indexBuffer)
@@ -237,7 +237,7 @@ void ParticleSystemClass::ShutdownBuffers()
 
 
 
-void ParticleSystemClass::RenderBuffers(ID3D11DeviceContext* deviceContext)
+void ParticleEmitter::RenderBuffers(ID3D11DeviceContext* deviceContext)
 {
 	unsigned int stride;
 	unsigned int offset;
@@ -279,7 +279,7 @@ void ParticleSystemClass::RenderBuffers(ID3D11DeviceContext* deviceContext)
     deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
-bool ParticleSystemClass::LoadTexture(ID3D11Device* device, WCHAR* filename)
+bool ParticleEmitter::LoadTexture(ID3D11Device* device, WCHAR* filename)
 {
 	bool result;
 
@@ -300,12 +300,12 @@ bool ParticleSystemClass::LoadTexture(ID3D11Device* device, WCHAR* filename)
 	return true;
 }
 
-ID3D11ShaderResourceView* ParticleSystemClass::GetTexture()
+ID3D11ShaderResourceView* ParticleEmitter::GetTexture()
 {
 	return m_Texture->GetTexture();
 }
 
-void ParticleSystemClass::ReleaseTexture()
+void ParticleEmitter::ReleaseTexture()
 {
 	// Release the texture object.
 	if (m_Texture)
@@ -318,7 +318,7 @@ void ParticleSystemClass::ReleaseTexture()
 	return;
 }
 
-void ParticleSystemClass::CreateEmitterWorldMatrix(Vector3 camPos)
+void ParticleEmitter::CreateEmitterWorldMatrix(Vector3 camPos)
 {
 	// перемещаем мировую матрицу на позицию эмитера
 	m_worldMatrix = XMMatrixTranslation(m_EmitterData.EmitterPosition.x, m_EmitterData.EmitterPosition.y, m_EmitterData.EmitterPosition.z);
@@ -326,7 +326,7 @@ void ParticleSystemClass::CreateEmitterWorldMatrix(Vector3 camPos)
 
 
 // Populate a texture with random numbers (used for the emission of particles)
-void ParticleSystemClass::FillRandomTexture(ID3D11Device* device)
+void ParticleEmitter::FillRandomTexture(ID3D11Device* device)
 {
 	D3D11_TEXTURE2D_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));

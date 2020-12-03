@@ -7,7 +7,7 @@
 #include "lightclass.h"
 #include "Gameobject.h"
 #include "SimpleText.h"
-#include "ParticleSystem/particlesystemclass.h"
+#include "ParticleSystem/ParticleEmitter.h"
 
 #include "rendertextureclass.h"
 #include "depthshaderclass.h"
@@ -37,12 +37,12 @@ public:
 	D3DClass* m_D3D;
 	bool Render(float DeltaSeconds, CameraClass*, LightClass*, SimpleText*, UINT32, UINT32);
 	void SetRenderable(Gameobject*, ModelClass*);
-	void SetRenderableEmitter(ParticleSystemClass*);
+	void SetRenderableEmitter(ParticleEmitter*);
 	bool RenderSceneToTexture(LightClass*);
 
 	std::vector<Gameobject*> m_GameobjsPool;
 	std::vector<ModelClass*> m_ModelsPool;
-	std::vector<ParticleSystemClass*> m_Emitters;
+	std::vector<ParticleEmitter*> m_Emitters;
 
 	RenderTextureClass* m_RenderTexture;
 	DepthShaderClass* m_DepthShader;

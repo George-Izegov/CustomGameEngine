@@ -165,8 +165,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="modelclass.cpp" />
     <ClCompile Include="Gameplane.cpp" />
+    <ClCompile Include="ParticleSystem\ParticleEmitter.cpp" />
     <ClCompile Include="ParticleSystem\particleshaderclass.cpp" />
-    <ClCompile Include="ParticleSystem\particlesystemclass.cpp" />
     <ClCompile Include="rendertextureclass.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="shadowshaderclass.cpp" />
@@ -187,9 +187,9 @@
     <ClInclude Include="KataVictim.h" />
     <ClInclude Include="lightclass.h" />
     <ClInclude Include="modelclass.h" />
+    <ClInclude Include="ParticleSystem\ParticleEmitter.h" />
     <ClInclude Include="ParticleSystem\ParticleGlobals.h" />
     <ClInclude Include="ParticleSystem\particleshaderclass.h" />
-    <ClInclude Include="ParticleSystem\particlesystemclass.h" />
     <ClInclude Include="rendertextureclass.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
