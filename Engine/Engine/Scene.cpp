@@ -96,9 +96,11 @@ bool Scene::Init(int sWidth, int sHeight, HWND hwnd)
 	{
 		return false;
 	}
-	m_Camera->SetPosition(0.0f, 9.0f, -25.0f);
-	m_Camera->SetRotation(0.0f, 10.0f, 0.0f);
+	//m_Camera->SetPosition(0.0f, 9.0f, -25.0f);
+	//m_Camera->SetRotation(0.0f, 10.0f, 0.0f);
 
+	m_Camera->SetPosition(0.0f, 0.0f, -1.0f);
+	m_Camera->SetRotation(0.0f, 0.0f, 0.0f);
 	// Create the light object.
 	m_Light = new LightClass;
 	if (!m_Light)
@@ -115,7 +117,7 @@ bool Scene::Init(int sWidth, int sHeight, HWND hwnd)
 
 	m_Katamari = new Katamari;
 	result = m_Katamari->Init(hwnd, m_Graphics->m_D3D);
-	m_Graphics->SetRenderable((Gameobject*)m_Katamari, m_Katamari->m_Model);
+	//m_Graphics->SetRenderable((Gameobject*)m_Katamari, m_Katamari->m_Model);
 
 	m_Katavictim = new KataVictim;
 	result = m_Katavictim->Init(hwnd, "Data\\Objects\\Item Bag.obj", L"../Engine/moneybag.tga", Vector3(1.75f, 1.75f, 1.75f), m_Graphics->m_D3D);
@@ -142,15 +144,72 @@ bool Scene::Init(int sWidth, int sHeight, HWND hwnd)
 	swprintf(pretext, 200, L"Количество свободных объектов на сцене: %u\nКоличество прикрепленных объектов на сцене: %u", numberOfUnattachedObjects, numberOfAttachedObjects);
 	m_SimpleText->DrawTextOnScene(480, 60, pretext);
 
+	
+	// Create the particle system object.
+	m_SmokeEmitter = new ParticleSystemClass;
+
+	Emitter Smoke;
+
+	Smoke.EmitterPosition = Vector3(0, 0, 0);
+	Smoke.ParticleSpawnDeviation = Vector3(2, 2, 2);
+	Smoke.ParticleSize = 5.0f;
+	Smoke.StartVelocity = Vector3(0.0f, 5.0f, 0.0f);
+	Smoke.VelDeviation = Vector3(2.0f, 2.0f, 2.0f);
+	Smoke.ParticlePerSec = 20;
+	Smoke.ParticleColor = Vector4(0.7f, 0.7f, 0.7f, 0.7f);
+	Smoke.ColorDeviation = Vector4(0.3f, 0.3f, 0.3f, 0.3f);
+	Smoke.EffectedForce = Vector3(0.0f, 10.0f, 0.0f);
+	Smoke.ParticlesLifetime = 5.0f;
+	Smoke.LifetimeDeviation = 2.0f;
+	Smoke.ParticlesMass = 1.0f;
+	Smoke.MassDeviation = 0.0f;
+
+	// Initialize the particle system object.
+	result = m_SmokeEmitter->Initialize(m_Graphics->m_D3D->GetDevice(), m_Graphics->m_D3D->GetDeviceContext(), (WCHAR*) L"../Engine/smoke4.tga", Smoke);
+	if (!result)
+	{
+		return false;
+	}
+
+	m_Graphics->SetRenderableEmitter(m_SmokeEmitter);
+
+	m_SnowEmitter = new ParticleSystemClass;
+
+	Emitter PinkSnow;
+
+	PinkSnow.EmitterPosition = Vector3(0, 8, 30);
+	PinkSnow.ParticleSpawnDeviation = Vector3(20, 20, 0);
+	PinkSnow.ParticleSize = 0.1f;
+	PinkSnow.StartVelocity = Vector3(0.0f, 0.0f, 0.0f);
+	PinkSnow.VelDeviation = Vector3(20.0f, 6.0f, 1.0f);
+	PinkSnow.ParticlePerSec = 2400;
+	PinkSnow.ParticleColor = Vector4(0.7f, 0.0f, 0.7f, 1.0f);
+	PinkSnow.ColorDeviation = Vector4(0.4f, 0.4f, 0.4f, 0.0f);
+	PinkSnow.EffectedForce = Vector3(20.0f, 0.0f, 0.0f);
+	PinkSnow.ParticlesLifetime = 2.0f;
+	PinkSnow.LifetimeDeviation = 1.0f;
+	PinkSnow.ParticlesMass = 1.0f;
+	PinkSnow.MassDeviation = 0.5f;
+
+	// Initialize the particle system object.
+	result = m_SnowEmitter->Initialize(m_Graphics->m_D3D->GetDevice(), m_Graphics->m_D3D->GetDeviceContext(), (WCHAR*)L"../Engine/brick.tga", PinkSnow);
+	if (!result)
+	{
+		return false;
+	}
+
+	m_Graphics->SetRenderableEmitter(m_SnowEmitter);
+
 	return result;
 }
 
-bool Scene::Update(int axisX,int axisY)
+bool Scene::Update(int axisX,int axisY, float DeltaSeconds)
 {
+	/*
 	//todo: move to katamari update
 	if (axisX != 0 || axisY != 0) {
 		m_Katamari->Translate(Vector3(axisX, 0.0f, axisY));
-		m_Camera->Follow(m_Katamari->m_Transform->trs,Vector3(0.0f, 9.0f,-25.0f));
+		m_Camera->Follow(m_Katamari->m_Transform->trs, Vector3(0.0f, 9.0f, -25.0f));
 		if (m_Katavictim->m_HasParent)
 			m_Katavictim->Update(m_Katamari);
 
@@ -159,8 +218,22 @@ bool Scene::Update(int axisX,int axisY)
 
 		if (m_Katavictim3->m_HasParent)
 			m_Katavictim3->Update(m_Katamari);
+	}*/
+
+	Vector3 rot = m_Camera->GetRotation();
+	if (axisX != 0) {
+		
+		m_Camera->SetRotation(rot.x + DeltaSeconds * axisX * 45.0f, rot.y, rot.z);
 	}
-;
+
+	if (axisY != 0)
+	{
+		Vector3 pos = m_Camera->GetPosition();
+		float yaw = rot.x;
+		pos += Vector3(sin(yaw/180.0f*XM_PI), 0.0f, cos(yaw/180.0f*XM_PI)) * DeltaSeconds * 20 * axisY;
+		m_Camera->SetPosition(pos.x, pos.y, pos.z);
+	}
+
 
 	//todo: move to katavictim update
 	if (m_Katamari->IsCloser(m_Katavictim, 1.0f) && !m_Katavictim->m_HasParent) 
@@ -196,7 +269,8 @@ bool Scene::Update(int axisX,int axisY)
 	// Update the position of the light.
 	m_Light->SetPosition(lightPositionX, 15.0f, -30.0f);
 
-	m_Graphics->Render(m_Camera, m_Light, m_SimpleText, numberOfUnattachedObjects, numberOfAttachedObjects);
+
+	m_Graphics->Render(DeltaSeconds, m_Camera, m_Light, m_SimpleText, numberOfUnattachedObjects, numberOfAttachedObjects);
 
 	return true;
 }

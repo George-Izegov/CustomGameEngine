@@ -43,6 +43,9 @@ public:
 
 	void GetVideoCardInfo(char*, int&);
 
+	void EnableAlphaBlending();
+	void DisableAlphaBlending();
+
 	void SetBackBufferRenderTarget();
 	void ResetViewport();
 	ID3D11RenderTargetView* GetRenderTargetView();
@@ -67,6 +70,8 @@ private:
 	XMMATRIX m_worldMatrix;
 	XMMATRIX m_orthoMatrix;
 	D3D11_VIEWPORT m_viewport;
+	ID3D11BlendState* m_alphaEnableBlendingState;
+	ID3D11BlendState* m_alphaDisableBlendingState;
 };
 
 #endif

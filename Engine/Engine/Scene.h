@@ -9,6 +9,8 @@
 #include "lightclass.h"
 #include <DirectXMath.h>
 #include "SimpleText.h"
+#include "ParticleSystem/particlesystemclass.h"
+#include "timerclass.h"
 
 using namespace std;
 using namespace DirectX;
@@ -21,13 +23,15 @@ public:
 	virtual void Load();
 	virtual void  Unload();
 	bool Init(int, int, HWND);
-	virtual bool  Update(int axisX, int axisY);
+	virtual bool  Update(int axisX, int axisY, float DeltaSeconds);
 
 private:
 	
 	CameraClass* m_Camera;
 	LightClass* m_Light;
 	GraphicsClass* m_Graphics;
+	ParticleSystemClass* m_SmokeEmitter;
+	ParticleSystemClass* m_SnowEmitter;
 	Gameplane* m_Gameplane;	
 	Katamari* m_Katamari;	
 	KataVictim* m_Katavictim;

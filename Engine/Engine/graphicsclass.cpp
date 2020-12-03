@@ -5,6 +5,7 @@ GraphicsClass::GraphicsClass()
 	m_RenderTexture = 0;
 	m_DepthShader = 0;
 	m_ShadowShader = 0;
+	m_ParticleShader = 0;
 }
 
 
@@ -82,12 +83,36 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		return false;
 	}
 
+	// Create the particle shader object.
+	m_ParticleShader = new ParticleShaderClass;
+	if (!m_ParticleShader)
+	{
+		return false;
+	}
+
+	// Initialize the particle shader object.
+	result = m_ParticleShader->Initialize(m_D3D->GetDevice(), hwnd);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the particle shader object.", L"Error", MB_OK);
+		return false;
+	}
+
 	return true;
 }
 
 
 void GraphicsClass::Shutdown()
 {
+
+	// Release the particle shader object.
+	if (m_ParticleShader)
+	{
+		m_ParticleShader->Shutdown();
+		delete m_ParticleShader;
+		m_ParticleShader = 0;
+	}
+
 	// Release the shadow shader object.
 	if (m_ShadowShader)
 	{
@@ -135,6 +160,11 @@ void GraphicsClass::SetRenderable(Gameobject* go,ModelClass* renderable)
 	m_GameobjsPool.push_back(go);
 }
 
+void GraphicsClass::SetRenderableEmitter(ParticleSystemClass* emitter)
+{
+	m_Emitters.push_back(emitter);
+}
+
 bool GraphicsClass::RenderSceneToTexture(LightClass* m_Light)
 {
 	XMMATRIX worldMatrix, lightViewMatrix, lightProjectionMatrix, translateMatrix;
@@ -179,25 +209,26 @@ bool GraphicsClass::RenderSceneToTexture(LightClass* m_Light)
 	return true;
 }
 
-bool GraphicsClass::Render(CameraClass* m_Camera, LightClass* m_Light, SimpleText* m_SimpleText, UINT32 numberOfUnattachedObjects, UINT32 numberOfAttachedObjects)
+bool GraphicsClass::Render(float DeltaSeconds, CameraClass* m_Camera, LightClass* m_Light, SimpleText* m_SimpleText, UINT32 numberOfUnattachedObjects, UINT32 numberOfAttachedObjects)
 {
 	XMMATRIX viewMatrix, projectionMatrix, worldMatrix;
 	XMMATRIX lightViewMatrix, lightProjectionMatrix;
 	bool result = false;
 
-
+	m_D3D->SetBackBufferRenderTarget();
 	// First render the scene to a texture.
 	result = RenderSceneToTexture(m_Light);
 	if (!result)
 	{
 		return false;
 	}
-
+	
 	// Clear the buffers to begin the scene.
 	m_D3D->BeginScene(.0f, .0f, .0f, 1.0f);
 
+	UINT32 FPS = (UINT32) 1 / DeltaSeconds;
 	wchar_t pretext[200];
-	swprintf(pretext, 200, L"Количество свободных объектов на сцене: %u\nКоличество прикрепленных объектов на сцене: %u", numberOfUnattachedObjects, numberOfAttachedObjects);
+	swprintf(pretext, 200, L"FPS: %i\nКоличество свободных объектов на сцене: %u\nКоличество прикрепленных объектов на сцене: %u", FPS, numberOfUnattachedObjects, numberOfAttachedObjects);
 	m_SimpleText->DrawTextOnScene(480, 60, pretext);
 
 	// Generate the view matrix based on the camera's position.
@@ -207,10 +238,28 @@ bool GraphicsClass::Render(CameraClass* m_Camera, LightClass* m_Light, SimpleTex
 	m_Camera->GetViewMatrix(viewMatrix);
 	m_D3D->GetWorldMatrix(worldMatrix);
 	m_D3D->GetProjectionMatrix(projectionMatrix);
-
+	
 	// Get the light's view and projection matrices from the light object.
 	m_Light->GetViewMatrix(lightViewMatrix);
 	m_Light->GetProjectionMatrix(lightProjectionMatrix);
+
+	m_D3D->EnableAlphaBlending();
+	
+	for (UINT i = 0; i < m_Emitters.size(); i++)
+	{
+		// Put the particle system vertex and index buffers on the graphics pipeline to prepare them for drawing.
+		m_Emitters[i]->Render(m_D3D->GetDeviceContext(), m_Camera->GetPosition());
+
+		worldMatrix = m_Emitters[i]->GetWorldMatrix();
+		// Render the model using the texture shader.
+		result = m_ParticleShader->Render(DeltaSeconds, m_D3D->GetDeviceContext(), m_Emitters[i]->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
+			m_Camera->GetPosition(), m_Emitters[i]->GetTexture());
+
+		if (!result)
+			return false;
+	}
+
+	m_D3D->DisableAlphaBlending();
 
 	for (UINT i = 0; i < m_ModelsPool.size(); i++)
 	{
@@ -227,7 +276,7 @@ bool GraphicsClass::Render(CameraClass* m_Camera, LightClass* m_Light, SimpleTex
 			return false;
 		}
 	}
-
+	
 	// Present the rendered scene to the screen.
 	m_D3D->EndScene();
 	return true;

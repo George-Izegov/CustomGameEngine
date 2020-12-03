@@ -37,3 +37,4 @@ x86/
 *.exe
 *.out
 *.app
+packages

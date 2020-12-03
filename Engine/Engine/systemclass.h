@@ -4,6 +4,7 @@
 #include <windows.h>
 #include "inputclass.h"
 #include "Scene.h"
+#include "timerclass.h"
 
 class SystemClass
 {
@@ -15,6 +16,8 @@ public:
 	bool Initialize();
 	void Shutdown();
 	void Run();
+
+	TimerClass* GetTimer() { return m_Timer; }
 
 	LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
 
@@ -28,6 +31,7 @@ private:
 	HINSTANCE m_hinstance;
 	HWND m_hwnd;
 
+	TimerClass* m_Timer;
 	InputClass* m_Input;
 	Scene* m_Scene;
 };

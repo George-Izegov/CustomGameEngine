@@ -35,6 +35,17 @@ bool SystemClass::Initialize()
 		return false;
 	}
 
+	// Create timer
+	m_Timer = new TimerClass;
+
+	// Initialize the timer object
+	result = m_Timer->Initialize();
+	if (!result)
+	{
+		MessageBox(m_hwnd, L"Could not initialize the timer object.", L"Error", MB_OK);
+		return false;
+	}
+
 	// Initialize the input object.
 	result = m_Input->Initialize(m_hinstance, m_hwnd, screenWidth, screenHeight);
 	if (!result)
@@ -143,8 +154,11 @@ bool SystemClass::Frame()
 	//m_Input->GetMouseLocation(axisL, axisR);
 	m_Input->GetLRAxisValue(axisX, axisY);
 
+	// update timer
+	m_Timer->Frame();
+
 	// Do the frame processing for the graphics object.
-	result = m_Scene->Update(axisX, axisY);
+	result = m_Scene->Update(axisX, axisY, m_Timer->GetDeltaTime());
 	if (!result)
 	{
 		return false;
