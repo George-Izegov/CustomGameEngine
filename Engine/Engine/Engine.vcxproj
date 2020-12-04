@@ -152,6 +152,9 @@
   <ItemGroup>
     <ClCompile Include="cameraclass.cpp" />
     <ClCompile Include="d3dclass.cpp" />
+    <ClCompile Include="deferredbuffersclass.cpp" />
+    <ClCompile Include="deferredpostprocessingclass.cpp" />
+    <ClCompile Include="deferredshaderclass.cpp" />
     <ClCompile Include="depthshaderclass.cpp" />
     <ClCompile Include="Gameobject.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
@@ -162,6 +165,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="modelclass.cpp" />
     <ClCompile Include="Gameplane.cpp" />
+    <ClCompile Include="orthowindowclass.cpp" />
     <ClCompile Include="rendertextureclass.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="shadowshaderclass.cpp" />
@@ -172,6 +176,9 @@
   <ItemGroup>
     <ClInclude Include="cameraclass.h" />
     <ClInclude Include="d3dclass.h" />
+    <ClInclude Include="deferredbuffersclass.h" />
+    <ClInclude Include="deferredpostprocessingclass.h" />
+    <ClInclude Include="deferredshaderclass.h" />
     <ClInclude Include="depthshaderclass.h" />
     <ClInclude Include="Gameobject.h" />
     <ClInclude Include="Gameplane.h" />
@@ -181,6 +188,7 @@
     <ClInclude Include="KataVictim.h" />
     <ClInclude Include="lightclass.h" />
     <ClInclude Include="modelclass.h" />
+    <ClInclude Include="orthowindowclass.h" />
     <ClInclude Include="rendertextureclass.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
@@ -192,6 +200,10 @@
   <ItemGroup>
     <None Include="color.ps" />
     <None Include="color.vs" />
+    <None Include="deferred.ps" />
+    <None Include="deferred.vs" />
+    <None Include="deferredlight.ps" />
+    <None Include="deferredlight.vs" />
     <None Include="depth.ps" />
     <None Include="depth.vs" />
     <None Include="light.ps" />
@@ -210,20 +222,20 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\directxtex_desktop_2017.2020.9.30.1\build\native\directxtex_desktop_2017.targets" Condition="Exists('..\packages\directxtex_desktop_2017.2020.9.30.1\build\native\directxtex_desktop_2017.targets')" />
+    <Import Project="..\packages\directxtk_desktop_2017.2020.9.30.1\build\native\directxtk_desktop_2017.targets" Condition="Exists('..\packages\directxtk_desktop_2017.2020.9.30.1\build\native\directxtk_desktop_2017.targets')" />
+    <Import Project="..\packages\Microsoft.XAudio2.Redist.1.2.4\build\native\Microsoft.XAudio2.Redist.targets" Condition="Exists('..\packages\Microsoft.XAudio2.Redist.1.2.4\build\native\Microsoft.XAudio2.Redist.targets')" />
     <Import Project="..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets" Condition="Exists('..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets')" />
-    <Import Project="..\packages\Microsoft.XAudio2.Redist.1.2.1\build\native\Microsoft.XAudio2.Redist.targets" Condition="Exists('..\packages\Microsoft.XAudio2.Redist.1.2.1\build\native\Microsoft.XAudio2.Redist.targets')" />
     <Import Project="..\packages\Assimp.3.0.0\build\native\Assimp.targets" Condition="Exists('..\packages\Assimp.3.0.0\build\native\Assimp.targets')" />
-    <Import Project="..\packages\directxtex_desktop_2017.2020.6.15.1\build\native\directxtex_desktop_2017.targets" Condition="Exists('..\packages\directxtex_desktop_2017.2020.6.15.1\build\native\directxtex_desktop_2017.targets')" />
-    <Import Project="..\packages\directxtk_desktop_2017.2020.6.2.1\build\native\directxtk_desktop_2017.targets" Condition="Exists('..\packages\directxtk_desktop_2017.2020.6.2.1\build\native\directxtk_desktop_2017.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\packages\directxtex_desktop_2017.2020.9.30.1\build\native\directxtex_desktop_2017.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_desktop_2017.2020.9.30.1\build\native\directxtex_desktop_2017.targets'))" />
+    <Error Condition="!Exists('..\packages\directxtk_desktop_2017.2020.9.30.1\build\native\directxtk_desktop_2017.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_desktop_2017.2020.9.30.1\build\native\directxtk_desktop_2017.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.XAudio2.Redist.1.2.4\build\native\Microsoft.XAudio2.Redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.XAudio2.Redist.1.2.4\build\native\Microsoft.XAudio2.Redist.targets'))" />
     <Error Condition="!Exists('..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.XAudio2.Redist.1.2.1\build\native\Microsoft.XAudio2.Redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.XAudio2.Redist.1.2.1\build\native\Microsoft.XAudio2.Redist.targets'))" />
     <Error Condition="!Exists('..\packages\Assimp.3.0.0\build\native\Assimp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Assimp.3.0.0\build\native\Assimp.targets'))" />
-    <Error Condition="!Exists('..\packages\directxtex_desktop_2017.2020.6.15.1\build\native\directxtex_desktop_2017.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_desktop_2017.2020.6.15.1\build\native\directxtex_desktop_2017.targets'))" />
-    <Error Condition="!Exists('..\packages\directxtk_desktop_2017.2020.6.2.1\build\native\directxtk_desktop_2017.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_desktop_2017.2020.6.2.1\build\native\directxtk_desktop_2017.targets'))" />
   </Target>
 </Project>

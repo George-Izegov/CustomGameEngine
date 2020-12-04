@@ -99,6 +99,18 @@
     <ClCompile Include="SimpleText.cpp">
       <Filter>Исходные файлы\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="deferredbuffersclass.cpp">
+      <Filter>Исходные файлы\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="deferredshaderclass.cpp">
+      <Filter>Исходные файлы\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="deferredpostprocessingclass.cpp">
+      <Filter>Исходные файлы\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="orthowindowclass.cpp">
+      <Filter>Исходные файлы\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="d3dclass.h">
@@ -155,6 +167,18 @@
     <ClInclude Include="SimpleText.h">
       <Filter>Файлы заголовков\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="deferredbuffersclass.h">
+      <Filter>Файлы заголовков\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="deferredshaderclass.h">
+      <Filter>Файлы заголовков\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="deferredpostprocessingclass.h">
+      <Filter>Файлы заголовков\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="orthowindowclass.h">
+      <Filter>Файлы заголовков\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="color.vs">
@@ -186,6 +210,18 @@
       <Filter>Файлы ресурсов</Filter>
     </None>
     <None Include="depth.ps">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="deferredlight.vs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="deferredlight.ps">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="deferred.ps">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="deferred.vs">
       <Filter>Файлы ресурсов</Filter>
     </None>
   </ItemGroup>
