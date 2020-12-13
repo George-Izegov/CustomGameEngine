@@ -3,6 +3,7 @@
 
 #include "Gameobject.h"
 #include "Katamari.h"
+
 class KataVictim : public Gameobject {
 public:
 	KataVictim();

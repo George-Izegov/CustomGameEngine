@@ -10,6 +10,8 @@
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 #include <tchar.h>
+#include <Python.h>
+#include <iostream>
 
 // Data
 static ID3D11Device*            g_pd3dDevice = NULL;
@@ -32,9 +34,62 @@ void CreateRenderTarget();
 void CleanupRenderTarget();
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+#define MOD_NAME "calc"
+#define FUNC_NAME "calculation"
+
+PyObject* pName = NULL, * pModule = NULL, * pDict = NULL, * pFunc = NULL, *pArgs = NULL, *pValue = NULL;
+
+int EndPython() {
+    Py_DECREF(pValue);
+    Py_DECREF(pName);
+    Py_Finalize();
+    return 1;
+}
+
+int cleanup(const string& text = string(), int exitCode = 1) {
+    Py_Finalize();
+    if (!text.empty())
+        cout << text << endl;
+    cout << "Press ENTER to return...\n";
+    cin.get();
+    return exitCode;
+}
+
 // Main code
 int main(int, char**)
 {
+    Py_Initialize();
+    PyRun_SimpleString("import sys;\n");
+    PyRun_SimpleString("sys.path.append(r'D:\\ITMO\\3 Semester\\Game Engine Dev\\Game Engine\\GameEngine\\GameEngine\')");//the folder where the calc.py is located*/
+    PyRun_SimpleString("print(sys.path);");
+    pName = PyUnicode_FromString(MOD_NAME);
+    if (pName == NULL) {
+        return cleanup("PyUnicode_FromString returned NULL");
+    }
+    pModule = PyImport_Import(pName);
+    Py_DECREF(pName);
+    if (pModule == NULL) {
+        return cleanup(string("NULL module: '") + MOD_NAME + "'");
+    }
+    pDict = PyModule_GetDict(pModule);
+    if (pDict == NULL) {
+        return cleanup("NULL module dict");
+    }
+
+    pArgs = PyTuple_New(2);
+    for (int i = 0; i < 2; i++) {
+        pValue = PyLong_FromLong(i + 4);
+        PyTuple_SetItem(pArgs, i, pValue);
+    }
+    
+    pFunc = PyDict_GetItemString(pDict, FUNC_NAME);
+    if (pFunc == NULL) {
+        cout << "pFunc error\n";
+        EndPython();
+    }
+    pValue = PyObject_CallObject(pFunc, pArgs);
+    cout << "Return of call: " << PyLong_AsLong(pValue) << endl;
+
     // Create application window
     //ImGui_ImplWin32_EnableDpiAwareness();
     WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("ImGui Example"), NULL };
@@ -154,8 +209,8 @@ int main(int, char**)
         }
 
         {
-            // Create a window called "My First Tool", with a menu bar.
-            ImGui::Begin("My First Tool", &my_tool_active, ImGuiWindowFlags_MenuBar);
+            // Create a window called "My First Too", with a menu bar.
+            ImGui::Begin("My First Too", &my_tool_active, ImGuiWindowFlags_MenuBar);
             if (ImGui::BeginMenuBar())
             {
                 if (ImGui::BeginMenu("File"))

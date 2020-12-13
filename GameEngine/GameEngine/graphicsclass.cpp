@@ -192,7 +192,7 @@ bool GraphicsClass::Render(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapCh
     BeginScene(g_pd3dDeviceContext, g_pSwapChain, g_mainRenderTargetView, g_pDepthStencilView, color);
 
     /*wchar_t pretext[200];
-    swprintf(pretext, 200, L"Количество свободных объектов на сцене: %u\nКоличество прикрепленных объектов на сцене: %u", numberOfUnattachedObjects, numberOfAttachedObjects);
+    swprintf(pretext, 200, "Количество свободных объектов на сцене: %u\nКоличество прикрепленных объектов на сцене: %u", numberOfUnattachedObjects, numberOfAttachedObjects);
     m_SimpleText->DrawTextOnScene(480, 60, pretext);*/
 
     // Generate the view matrix based on the camera's position.
