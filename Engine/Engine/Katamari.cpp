@@ -27,23 +27,23 @@ void Katamari::Unload()
 	}
 }
 
-bool Katamari::Init(HWND hwnd, D3DClass* d3d)
+HRESULT Katamari::Init(HWND hwnd, ID3D11Device* g_pd3dDevice)
 {
-	bool result;
-	Gameobject::Init(hwnd, d3d);
+	HRESULT result = S_OK;
+	Gameobject::Init(hwnd, g_pd3dDevice);
 	m_Model = new ModelClass();
 	if (!m_Model)
 	{
-		return false;
+		return E_FAIL;
 	}
 	// Initialize the model.
-	result = m_Model->Initialize(Gameobject::m_D3D->GetDevice(), "Data\\Objects\\sphere.obj", L"../Engine/earth.tga");
-	if (!result)
+	result = m_Model->Initialize(g_pd3dDevice, "GameEngine/Data/Objects/sphere.obj", L"GameEngine/Data/Objects/earth.tga");
+	if (FAILED(result))
 	{
-		MessageBox(hwnd, L"Could not initialize model.", L"Error", MB_OK);
-		return false;
+		MessageBox(hwnd, L"Could not initialize Katamari model.", L"Error", MB_OK);
+		return E_FAIL;
 	}
-	return result;
+	return S_OK;
 }
 
 bool Katamari::Update()

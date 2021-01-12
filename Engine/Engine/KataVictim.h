@@ -3,6 +3,7 @@
 
 #include "Gameobject.h"
 #include "Katamari.h"
+
 class KataVictim : public Gameobject {
 public:
 	KataVictim();
@@ -10,8 +11,10 @@ public:
 	//base
 	void Load() override;
 	void  Unload() override;
-	bool Init(HWND, D3DClass*) override;
-	bool Init(HWND, std::string model_filename, LPCWSTR texture_filename, Vector3, D3DClass*) override;
+
+	HRESULT Init(HWND, ID3D11Device*) override;
+	HRESULT Init(HWND, LPCWSTR model_filename, LPCWSTR texture_filename, Vector3, ID3D11Device*) override;
+
 	bool  Update() override;
 	bool  Update(Katamari*);
 	//custom

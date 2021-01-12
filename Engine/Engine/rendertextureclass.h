@@ -9,7 +9,8 @@
 // INCLUDES //
 //////////////
 #include <d3d11.h>
-#include <DirectXMath.h>
+#include "DirectXMath.h"
+
 using namespace DirectX;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -22,7 +23,7 @@ public:
 	RenderTextureClass(const RenderTextureClass&);
 	~RenderTextureClass();
 
-	bool Initialize(ID3D11Device*, int, int, float, float);
+    HRESULT Initialize(ID3D11Device*, int, int, float, float);
 	void Shutdown();
 
 	void SetRenderTarget(ID3D11DeviceContext*);
@@ -42,5 +43,4 @@ private:
 	XMMATRIX m_orthoMatrix;
 
 };
-
 #endif

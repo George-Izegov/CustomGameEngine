@@ -33,26 +33,28 @@ void Gameplane::Unload()
 	}
 }
 
-bool Gameplane::Init(HWND hwnd, D3DClass* d3d)
+HRESULT Gameplane::Init(HWND hwnd, ID3D11Device* g_pd3dDevice)
 {
-	bool result;
-	Gameobject::Init(hwnd, d3d);
+	HRESULT result = S_OK;
+	Gameobject::Init(hwnd, g_pd3dDevice);
 	m_Model = new ModelClass();
 	if (!m_Model)
 	{
-		return false;
+		return E_FAIL;
 	}
 	// Initialize the model.
-	result = m_Model->Initialize(Gameobject::m_D3D->GetDevice(), "Data\\Objects\\m_plane.obj", L"../Engine/brick.tga");
-	if (!result)
+	result = m_Model->Initialize(g_pd3dDevice, "GameEngine/Data/Objects/plane.obj", L"GameEngine/Data/Objects/brick.tga");
+	if (FAILED(result))
 	{
-		MessageBox(hwnd, L"Could not initialize model.", L"Error", MB_OK);
-		return false;
+		MessageBox(hwnd, L"Could not initialize Plane.", L"Error", MB_OK);
+		return E_FAIL;
+
 	}
 	m_Scale = XMMatrixScaling(3.75f, 3.75f, 3.75f);
 	m_Translation = XMMatrixTranslation(0.0f, -1.0f, 0.0f);
 	m_Transform->trs = m_Scale * m_Translation;
-	return result;
+
+	return S_OK;
 }
 
 bool Gameplane::Update()

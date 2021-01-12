@@ -4,7 +4,7 @@
 #include "Gameobject.h"
 #include <dwrite.h>
 #include <d2d1.h>
-#include "d3dclass.h"
+
 #pragma comment(lib, "d2d1.lib") // This is what D2D1CreateFactory makes to work
 #pragma comment(lib, "Dwrite") // This is what DWriteCreateFactory makes to work
 
@@ -22,7 +22,7 @@ public:
 	COLORREF pBrushColor;
 	ID3D11RenderTargetView* m_renderTargetView;
 
-	void Init(HWND hwnd_, COLORREF pBrushColor_, D3DClass*);
+	void Init(HWND hwnd_, COLORREF pBrushColor_, ID3D11RenderTargetView*);
 	HRESULT CreateDeviceResources();
 	void DiscardDeviceResources();
 	void ConfigureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText_);

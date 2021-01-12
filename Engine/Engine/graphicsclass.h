@@ -1,7 +1,6 @@
 #ifndef _GRAPHICSCLASS_H_
 #define _GRAPHICSCLASS_H_
 #include <windows.h>
-#include "d3dclass.h"
 #include "cameraclass.h"
 #include "modelclass.h"
 #include "lightclass.h"
@@ -9,12 +8,14 @@
 #include "SimpleText.h"
 
 #include "rendertextureclass.h"
+
 #include "shadowshaderclass.h"
 #include "deferredshaderclass.h"
 #include "deferredbuffersclass.h"
 #include "deferredpostprocessingclass.h"
 #include "orthowindowclass.h"
 #include "depthshaderclass.h"
+#include "imgui/imgui.h"
 
 enum RendererType
 {
@@ -22,6 +23,8 @@ enum RendererType
 };
 
 const RendererType RENDERER = DEFERRED;
+
+
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
 const float SCREEN_DEPTH = 200.0f;
@@ -37,20 +40,23 @@ public:
 	GraphicsClass(const GraphicsClass&);
 	~GraphicsClass();
 
-	bool Initialize(int, int, HWND);
+	HRESULT Initialize(ID3D11Device*, int, int, HWND);
 	void Shutdown();
+	bool Frame();
 
-	D3DClass* m_D3D;
-	bool Render(CameraClass*, LightClass*, SimpleText*, UINT32, UINT32);
+
+	bool Render(ID3D11DeviceContext*, IDXGISwapChain*, ID3D11RenderTargetView*, ID3D11DepthStencilView*, ImVec4, CameraClass*, LightClass*, SimpleText*, UINT32, UINT32, Matrix, Matrix, Matrix);
 	void SetRenderable(Gameobject*, ModelClass*);
 	bool RenderDepthToTexture(LightClass*);
-	bool RenderSceneToTexture(CameraClass*, LightClass*);
-
+	bool RenderSceneToTexture(ID3D11DeviceContext*, LightClass*, Matrix, ID3D11RenderTargetView*, ID3D11DepthStencilView*);
+	void BeginScene(ID3D11DeviceContext*, IDXGISwapChain*, ID3D11RenderTargetView*, ID3D11DepthStencilView*, ImVec4);
+	void EndScene(IDXGISwapChain*);
 	std::vector<Gameobject*> m_GameobjsPool;
 	std::vector<ModelClass*> m_ModelsPool;
 	
 	//Forward
 	RenderTextureClass* m_DepthTexture;
+	RenderTextureClass* m_RenderTexture;
 	DepthShaderClass* m_DepthShader;
 	ShadowShaderClass* m_ShadowShader;
 	

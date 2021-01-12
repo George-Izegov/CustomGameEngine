@@ -15,9 +15,11 @@ TextureClass::TextureClass(const TextureClass& other)
 TextureClass::~TextureClass()
 {
 }
-bool TextureClass::Initialize(ID3D11Device* device, LPCWSTR filename)
+
+HRESULT TextureClass::Initialize(ID3D11Device* device, LPCWSTR filename)
 {
-	HRESULT result;
+	HRESULT result = S_OK;
+
 
 
 	// Load the texture in.
@@ -38,11 +40,11 @@ bool TextureClass::Initialize(ID3D11Device* device, LPCWSTR filename)
 		return true;
 		if (FAILED(result))
 		{
-			return false;
+			return result;
 		}
 	}
 
-	return true;
+	return result;
 }
 
 void TextureClass::Shutdown()
@@ -60,4 +62,5 @@ void TextureClass::Shutdown()
 ID3D11ShaderResourceView* TextureClass::GetTexture()
 {
 	return m_texture;
+
 }

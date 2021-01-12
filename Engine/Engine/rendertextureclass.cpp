@@ -24,7 +24,7 @@ RenderTextureClass::~RenderTextureClass()
 }
 
 
-bool RenderTextureClass::Initialize(ID3D11Device* device, int textureWidth, int textureHeight, float screenDepth, float screenNear)
+HRESULT RenderTextureClass::Initialize(ID3D11Device* device, int textureWidth, int textureHeight, float screenDepth, float screenNear)
 {
 	D3D11_TEXTURE2D_DESC textureDesc;
 	HRESULT result;
@@ -53,7 +53,7 @@ bool RenderTextureClass::Initialize(ID3D11Device* device, int textureWidth, int 
 	result = device->CreateTexture2D(&textureDesc, NULL, &m_renderTargetTexture);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Setup the description of the render target view.
@@ -65,7 +65,7 @@ bool RenderTextureClass::Initialize(ID3D11Device* device, int textureWidth, int 
 	result = device->CreateRenderTargetView(m_renderTargetTexture, &renderTargetViewDesc, &m_renderTargetView);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Setup the description of the shader resource view.
@@ -78,7 +78,7 @@ bool RenderTextureClass::Initialize(ID3D11Device* device, int textureWidth, int 
 	result = device->CreateShaderResourceView(m_renderTargetTexture, &shaderResourceViewDesc, &m_shaderResourceView);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Initialize the description of the depth buffer.
@@ -101,7 +101,7 @@ bool RenderTextureClass::Initialize(ID3D11Device* device, int textureWidth, int 
 	result = device->CreateTexture2D(&depthBufferDesc, NULL, &m_depthStencilBuffer);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Initailze the depth stencil view description.
@@ -116,7 +116,7 @@ bool RenderTextureClass::Initialize(ID3D11Device* device, int textureWidth, int 
 	result = device->CreateDepthStencilView(m_depthStencilBuffer, &depthStencilViewDesc, &m_depthStencilView);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Setup the viewport for rendering.
@@ -133,7 +133,7 @@ bool RenderTextureClass::Initialize(ID3D11Device* device, int textureWidth, int 
 	// Create an orthographic projection matrix for 2D rendering.
 	m_orthoMatrix = XMMatrixOrthographicLH((float)textureWidth, (float)textureHeight, screenNear, screenDepth);
 
-	return true;
+	return result;
 }
 
 

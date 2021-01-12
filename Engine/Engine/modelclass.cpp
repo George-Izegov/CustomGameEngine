@@ -20,47 +20,47 @@ ModelClass::~ModelClass()
 
 //The Initialize function will call the initialization functions for the vertexand index buffers.
 
-bool ModelClass::Initialize(ID3D11Device * device, std::string modelFilename, LPCWSTR textureFilename)
+HRESULT ModelClass::Initialize(ID3D11Device * device, std::string modelFilename, LPCWSTR textureFilename)
 {
-	bool result;
+	HRESULT result = S_OK;
 	// Load in the model data,
 	result = LoadModel(modelFilename);
-	if (!result)
+	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 	// Initialize the vertex and index buffer that hold the geometry for the triangle.
 	result = InitializeBuffers(device);
-	if (!result)
+	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 	// Load the texture for this model.
 	result = LoadTexture(device, textureFilename);
-	if (!result)
+	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
-	return true;
+	return result;
 }
 
-bool ModelClass::LoadTexture(ID3D11Device* device, LPCWSTR filename)
+HRESULT ModelClass::LoadTexture(ID3D11Device* device, LPCWSTR filename)
 {
-	bool result;
+	HRESULT result = S_OK;
 	// Create the texture object.
 	m_Texture = new TextureClass;
 	if (!m_Texture)
 	{
-		return false;
+		return E_FAIL;
 	}
 	// Initialize the texture object.
 	result = m_Texture->Initialize(device, filename);
-	if (!result)
+	if (FAILED(result))
 	{
-		return false;
+		return E_FAIL;
 	}
 
-	return true;
+	return S_OK;
 }
 
 void ModelClass::ReleaseTexture()
@@ -75,16 +75,15 @@ void ModelClass::ReleaseTexture()
 
 	return;
 }
-bool ModelClass::LoadModel(std::string path)
+HRESULT ModelClass::LoadModel(std::string path)
 {
-		
 	Assimp::Importer importer;
 	importer.FreeScene();
 	const aiScene* scene = importer.ReadFile(path,
 		aiProcess_Triangulate | aiProcess_ConvertToLeftHanded);
 	
 	if (scene == nullptr)
-		return false;
+		return E_FAIL;
 		
 	//only support 1 mesh for now
 	aiMesh* mesh = scene->mMeshes[0];
@@ -127,7 +126,7 @@ bool ModelClass::LoadModel(std::string path)
 		{
 			indices[i] = (ULONG)m_indices[i];
 		}
-	return true;
+	return S_OK;
 }
 
 //The Shutdown function will call the shutdown functions for the vertex and index buffers.
@@ -176,12 +175,12 @@ ID3D11ShaderResourceView* ModelClass::GetTexture()
 //Usually you would read in a modeland create the buffers from that data file.
 //For this tutorial we will just set the points in the vertexand index buffer manually since it is only a single triangle.
 
-bool ModelClass::InitializeBuffers(ID3D11Device* d11device)
+HRESULT ModelClass::InitializeBuffers(ID3D11Device* d11device)
 {
 	this->device = d11device;
 	D3D11_BUFFER_DESC indexBufferDesc;
 	D3D11_SUBRESOURCE_DATA indexData;
-	HRESULT result;
+	HRESULT result = S_OK;
 
 
 	// Create the vertex array.
@@ -203,7 +202,7 @@ bool ModelClass::InitializeBuffers(ID3D11Device* d11device)
 	result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer);
 	if (FAILED(result))
 	{
-		return false;
+		return E_FAIL;
 	}
 
 	// Set up the description of the static index buffer.
@@ -223,7 +222,7 @@ bool ModelClass::InitializeBuffers(ID3D11Device* d11device)
 	result = device->CreateBuffer(&indexBufferDesc, &indexData, &m_indexBuffer);
 	if (FAILED(result))
 	{
-		return false;
+		return E_FAIL;
 	}
 
 	// Release the arrays now that the vertex and index buffers have been created and loaded.
@@ -233,7 +232,7 @@ bool ModelClass::InitializeBuffers(ID3D11Device* d11device)
 	delete[] indices;
 	indices = 0;
 
-	return true;
+	return result;
 }
 
 void ModelClass::ShutdownBuffers()

@@ -18,10 +18,129 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameEngine\backends\imgui_impl_dx11.cpp" />
+    <ClCompile Include="GameEngine\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="GameEngine\cameraclass.cpp" />
+    <ClCompile Include="GameEngine\depthshaderclass.cpp" />
+    <ClCompile Include="GameEngine\Gameobject.cpp" />
+    <ClCompile Include="GameEngine\Gameplane.cpp" />
+    <ClCompile Include="GameEngine\graphicsclass.cpp" />
+    <ClCompile Include="GameEngine\imgui\imgui.cpp" />
+    <ClCompile Include="GameEngine\imgui\imgui_demo.cpp" />
+    <ClCompile Include="GameEngine\imgui\imgui_draw.cpp" />
+    <ClCompile Include="GameEngine\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="GameEngine\Katamari.cpp" />
+    <ClCompile Include="GameEngine\KataVictim.cpp" />
+    <ClCompile Include="GameEngine\lightclass.cpp" />
+    <ClCompile Include="GameEngine\main.cpp" />
+    <ClCompile Include="GameEngine\modelclass.cpp" />
+    <ClCompile Include="GameEngine\rendertextureclass.cpp" />
+    <ClCompile Include="GameEngine\Scene.cpp" />
+    <ClCompile Include="GameEngine\shadowshaderclass.cpp" />
+    <ClCompile Include="GameEngine\SimpleText.cpp" />
+    <ClCompile Include="GameEngine\textureclass.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameEngine\backends\imgui_impl_dx11.h" />
+    <ClInclude Include="GameEngine\backends\imgui_impl_win32.h" />
+    <ClInclude Include="GameEngine\cameraclass.h" />
+    <ClInclude Include="GameEngine\depthshaderclass.h" />
+    <ClInclude Include="GameEngine\Gameobject.h" />
+    <ClInclude Include="GameEngine\Gameplane.h" />
+    <ClInclude Include="GameEngine\graphicsclass.h" />
+    <ClInclude Include="GameEngine\imgui\imconfig.h" />
+    <ClInclude Include="GameEngine\imgui\imgui.h" />
+    <ClInclude Include="GameEngine\imgui\imgui_internal.h" />
+    <ClInclude Include="GameEngine\imgui\imstb_rectpack.h" />
+    <ClInclude Include="GameEngine\imgui\imstb_textedit.h" />
+    <ClInclude Include="GameEngine\imgui\imstb_truetype.h" />
+    <ClInclude Include="GameEngine\Katamari.h" />
+    <ClInclude Include="GameEngine\KataVictim.h" />
+    <ClInclude Include="GameEngine\lightclass.h" />
+    <ClInclude Include="GameEngine\modelclass.h" />
+    <ClInclude Include="GameEngine\rendertextureclass.h" />
+    <ClInclude Include="GameEngine\Scene.h" />
+    <ClInclude Include="GameEngine\shadowshaderclass.h" />
+    <ClInclude Include="GameEngine\SimpleText.h" />
+    <ClInclude Include="GameEngine\textureclass.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="GameEngine\misc\natvis\imgui.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="GameEngine\Data\depth.ps">
+      <FileType>Document</FileType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">DepthPixelShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">DepthPixelShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">DepthPixelShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">DepthPixelShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="GameEngine\Data\depth.vs">
+      <FileType>Document</FileType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">DepthVertexShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">DepthVertexShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">DepthVertexShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">DepthVertexShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="GameEngine\Data\shadow.ps">
+      <FileType>Document</FileType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ShadowPixelShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ShadowPixelShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ShadowPixelShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ShadowPixelShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="GameEngine\Data\shadow.vs">
+      <FileType>Document</FileType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ShadowVertexShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ShadowVertexShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ShadowVertexShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ShadowVertexShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <None Include="GameEngine\calc.py" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="GameEngine\Data\Objects\brick.tga" />
+    <Image Include="GameEngine\Data\Objects\earth.tga" />
+    <Image Include="GameEngine\Data\Objects\moonmap.tga" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{E36F6DDF-330E-4B8C-9CE1-EF5D5D9AAE07}</ProjectGuid>
-    <RootNamespace>Engine</RootNamespace>
+    <ProjectGuid>{E8B8F9B2-30E6-4086-95A0-89D4319FDCFE}</ProjectGuid>
+    <RootNamespace>GameEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -71,38 +190,52 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Program Files\Python39;C:\Program Files\Python39\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Python39\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Program Files\Python39;C:\Program Files\Python39\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Python39\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Program Files\Python39;C:\Program Files\Python39\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Python39\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Program Files\Python39;C:\Program Files\Python39\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Python39\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;python39.lib;python39_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;python39.lib;python39_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,14 +244,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;python39.lib;python39_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -127,69 +263,35 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;python39.lib;python39_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="cameraclass.cpp" />
-    <ClCompile Include="colorshaderclass.cpp" />
-    <ClCompile Include="d3dclass.cpp" />
-    <ClCompile Include="graphicsclass.cpp" />
-    <ClCompile Include="inputclass.cpp" />
-    <ClCompile Include="lightclass.cpp" />
-    <ClCompile Include="lightshaderclass.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="modelclass.cpp" />
-    <ClCompile Include="primitiveclass.cpp" />
-    <ClCompile Include="systemclass.cpp" />
-    <ClCompile Include="textureclass.cpp" />
-    <ClCompile Include="textureshaderclass.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="cameraclass.h" />
-    <ClInclude Include="colorshaderclass.h" />
-    <ClInclude Include="d3dclass.h" />
-    <ClInclude Include="graphicsclass.h" />
-    <ClInclude Include="inputclass.h" />
-    <ClInclude Include="lightclass.h" />
-    <ClInclude Include="lightshaderclass.h" />
-    <ClInclude Include="modelclass.h" />
-    <ClInclude Include="primitiveclass.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="systemclass.h" />
-    <ClInclude Include="textureclass.h" />
-    <ClInclude Include="textureshaderclass.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="color.ps" />
-    <None Include="color.vs" />
-    <None Include="light.ps" />
-    <None Include="light.vs" />
-    <None Include="packages.config" />
-    <None Include="texture.ps" />
-    <None Include="texture.vs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="C:\Users\Владислав\Desktop\brick.tga" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="cube.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\directxtex_desktop_2017.2020.2.15.1\build\native\directxtex_desktop_2017.targets" Condition="Exists('..\packages\directxtex_desktop_2017.2020.2.15.1\build\native\directxtex_desktop_2017.targets')" />
+    <Import Project="packages\Microsoft.XAudio2.Redist.1.2.4\build\native\Microsoft.XAudio2.Redist.targets" Condition="Exists('packages\Microsoft.XAudio2.Redist.1.2.4\build\native\Microsoft.XAudio2.Redist.targets')" />
+    <Import Project="packages\directxtk_desktop_2017.2020.11.12.1\build\native\directxtk_desktop_2017.targets" Condition="Exists('packages\directxtk_desktop_2017.2020.11.12.1\build\native\directxtk_desktop_2017.targets')" />
+    <Import Project="packages\directxtex_desktop_2017.2020.11.12.1\build\native\directxtex_desktop_2017.targets" Condition="Exists('packages\directxtex_desktop_2017.2020.11.12.1\build\native\directxtex_desktop_2017.targets')" />
+    <Import Project="packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets" Condition="Exists('packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets')" />
+    <Import Project="packages\Assimp.3.0.0\build\native\Assimp.targets" Condition="Exists('packages\Assimp.3.0.0\build\native\Assimp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\directxtex_desktop_2017.2020.2.15.1\build\native\directxtex_desktop_2017.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_desktop_2017.2020.2.15.1\build\native\directxtex_desktop_2017.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.XAudio2.Redist.1.2.4\build\native\Microsoft.XAudio2.Redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.XAudio2.Redist.1.2.4\build\native\Microsoft.XAudio2.Redist.targets'))" />
+    <Error Condition="!Exists('packages\directxtk_desktop_2017.2020.11.12.1\build\native\directxtk_desktop_2017.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\directxtk_desktop_2017.2020.11.12.1\build\native\directxtk_desktop_2017.targets'))" />
+    <Error Condition="!Exists('packages\directxtex_desktop_2017.2020.11.12.1\build\native\directxtex_desktop_2017.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\directxtex_desktop_2017.2020.11.12.1\build\native\directxtex_desktop_2017.targets'))" />
+    <Error Condition="!Exists('packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets'))" />
+    <Error Condition="!Exists('packages\Assimp.3.0.0\build\native\Assimp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Assimp.3.0.0\build\native\Assimp.targets'))" />
   </Target>
 </Project>

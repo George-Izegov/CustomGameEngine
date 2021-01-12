@@ -127,4 +127,5 @@ void LightClass::GetProjectionMatrix(XMMATRIX& projectionMatrix)
 {
 	projectionMatrix = m_projectionMatrix;
 	return;
+
 }

@@ -2,7 +2,7 @@
 
 Gameobject::Gameobject()
 {
-	m_D3D = 0;
+	device = NULL;
 	m_Transform = 0;
 }
 
@@ -29,12 +29,13 @@ bool Gameobject::IsCloser(Gameobject* other, float dist)
 	Quaternion otherRotation;//not needed but c++
 	Vector3 otherScale;//not needed but c++
 	other->m_Transform->trs.Decompose(otherScale, otherRotation, otherPosition);
-
+	
 	float diff_x = position.x - otherPosition.x;
 	float diff_y = position.y - otherPosition.y;
 	float diff_z = position.z - otherPosition.z;
-
+	
 	return ((float)sqrt(diff_x * diff_x + diff_y * diff_y + diff_z * diff_z)< dist);
+	return true;
 }
 
 Vector3 Gameobject::Distance(Gameobject* other)
@@ -54,26 +55,25 @@ Vector3 Gameobject::Distance(Gameobject* other)
 	return Vector3(diff_x, diff_y, diff_z);
 }
 
-bool Gameobject::Init(HWND hwnd, D3DClass* d3d)
+HRESULT Gameobject::Init(HWND hwnd, ID3D11Device* g_pd3dDevice)
 {
+	device = g_pd3dDevice;
 
-	m_D3D = d3d;
 	m_Transform = new Transform;
 	m_Transform->trs = XMMatrixIdentity();
 	// Create the Model.
-
-	return true;
+	return S_OK;
 }
 
-bool Gameobject::Init(HWND hwnd, std::string model_filename, LPCWSTR texture_filename, Vector3 new_scale, D3DClass* d3d)
+HRESULT Gameobject::Init(HWND hwnd, LPCWSTR model_filename, LPCWSTR texture_filename, Vector3 new_scale, ID3D11Device* g_pd3dDevice)
 {
+	device = g_pd3dDevice;
 
-	m_D3D = d3d;
 	m_Transform = new Transform;
 	m_Transform->trs = XMMatrixIdentity();
 	// Create the Model.
 
-	return true;
+	return S_OK;
 }
 
 bool Gameobject::Update()

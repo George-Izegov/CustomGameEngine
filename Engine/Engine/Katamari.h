@@ -11,7 +11,7 @@ public:
 	//base
 	void Load() override;
 	void  Unload() override;
-	bool Init(HWND, D3DClass*) override;
+	HRESULT Init(HWND, ID3D11Device*) override;
 	bool  Update() override;
 	//custom
 	void Translate(Vector3);

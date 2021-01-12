@@ -38,14 +38,16 @@ void CameraClass::SetRotation(float x, float y, float z)
 	return;
 }
 
-void CameraClass::Follow(Matrix trs, Vector3 offset)
+
+void CameraClass::Follow(Matrix trs,Vector3 offset)
+
 {
 	Vector3 translation;
 	Quaternion rotation;
 	Vector3 scale;
 	trs.Decompose(scale, rotation, translation);
 	translation += offset;
-	SetPosition(translation.x, translation.y, translation.z);
+	SetPosition(translation.x,translation.y,translation.z);
 }
 
 XMFLOAT3 CameraClass::GetPosition()
