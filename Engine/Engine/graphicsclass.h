@@ -9,9 +9,19 @@
 #include "SimpleText.h"
 
 #include "rendertextureclass.h"
-#include "depthshaderclass.h"
 #include "shadowshaderclass.h"
+#include "deferredshaderclass.h"
+#include "deferredbuffersclass.h"
+#include "deferredpostprocessingclass.h"
+#include "orthowindowclass.h"
+#include "depthshaderclass.h"
 
+enum RendererType
+{
+	FORWARD,DEFERRED
+};
+
+const RendererType RENDERER = DEFERRED;
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
 const float SCREEN_DEPTH = 200.0f;
@@ -29,18 +39,25 @@ public:
 
 	bool Initialize(int, int, HWND);
 	void Shutdown();
-	bool Frame();
 
 	D3DClass* m_D3D;
 	bool Render(CameraClass*, LightClass*, SimpleText*, UINT32, UINT32);
 	void SetRenderable(Gameobject*, ModelClass*);
-	bool RenderSceneToTexture(LightClass*);
+	bool RenderDepthToTexture(LightClass*);
+	bool RenderSceneToTexture(CameraClass*, LightClass*);
 
 	std::vector<Gameobject*> m_GameobjsPool;
 	std::vector<ModelClass*> m_ModelsPool;
-
-	RenderTextureClass* m_RenderTexture;
+	
+	//Forward
+	RenderTextureClass* m_DepthTexture;
 	DepthShaderClass* m_DepthShader;
 	ShadowShaderClass* m_ShadowShader;
+	
+	//Deferred	
+	OrthoWindowClass* m_FullScreenWindow;
+	DeferredShaderClass* m_DeferredShader;
+	DeferredBuffersClass* m_DeferredBuffers;
+	DeferredPostProcessingClass* m_PostProcessing;
 };
 #endif

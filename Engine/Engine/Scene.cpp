@@ -98,6 +98,9 @@ bool Scene::Init(int sWidth, int sHeight, HWND hwnd)
 	}
 	m_Camera->SetPosition(0.0f, 9.0f, -25.0f);
 	m_Camera->SetRotation(0.0f, 10.0f, 0.0f);
+	// Generate the view matrix based on the camera's position.
+	m_Camera->Render();
+	m_Camera->RenderBaseViewMatrix();
 
 	// Create the light object.
 	m_Light = new LightClass;
@@ -112,6 +115,7 @@ bool Scene::Init(int sWidth, int sHeight, HWND hwnd)
 	m_Light->SetSpecularPower(32.0f);
 	m_Light->SetLookAt(0.0f, 7.0f, -7.0f);
 	m_Light->GenerateProjectionMatrix(SCREEN_DEPTH, SCREEN_NEAR);
+	m_Light->SetPosition(-10.0f, 15.0f, -30.0f);
 
 	m_Katamari = new Katamari;
 	result = m_Katamari->Init(hwnd, m_Graphics->m_D3D);
