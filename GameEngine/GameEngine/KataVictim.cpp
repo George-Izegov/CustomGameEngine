@@ -64,9 +64,10 @@ HRESULT KataVictim::Init(HWND hwnd, LPCWSTR model_filename, LPCWSTR texture_file
 	{
 		return E_FAIL;
 	}
-	// Initialize the model.
+
 	std::wstring mf = model_filename;
 	std::string str(mf.begin(), mf.end());
+	// Initialize the model.
 	result = m_Model->Initialize(g_pd3dDevice, str, texture_filename);
 	if (FAILED(result))
 	{

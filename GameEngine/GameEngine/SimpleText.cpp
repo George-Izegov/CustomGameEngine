@@ -119,7 +119,7 @@ void SimpleText::ConfigureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText_)
     
     UINT32 cTextLength_ = (UINT32)wcslen(wszText_);
 
-    pRT_->DrawTextW(
+    pRT_->DrawText(
         wszText_,   // The string to render.
         cTextLength_,    // The string's length.
         pTextFormat_,    // The text format.
