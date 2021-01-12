@@ -215,7 +215,6 @@ bool GraphicsClass::Render(float DeltaSeconds, CameraClass* m_Camera, LightClass
 	XMMATRIX lightViewMatrix, lightProjectionMatrix;
 	bool result = false;
 
-	m_D3D->SetBackBufferRenderTarget();
 	// First render the scene to a texture.
 	result = RenderSceneToTexture(m_Light);
 	if (!result)
@@ -228,7 +227,7 @@ bool GraphicsClass::Render(float DeltaSeconds, CameraClass* m_Camera, LightClass
 
 	UINT32 FPS = (UINT32) 1 / DeltaSeconds;
 	wchar_t pretext[200];
-	swprintf(pretext, 200, L"FPS: %i\nКоличество свободных объектов на сцене: %u\nКоличество прикрепленных объектов на сцене: %u", FPS, numberOfUnattachedObjects, numberOfAttachedObjects);
+	swprintf(pretext, 200, L"FPS: %i", FPS);
 	m_SimpleText->DrawTextOnScene(480, 60, pretext);
 
 	// Generate the view matrix based on the camera's position.

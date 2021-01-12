@@ -11,6 +11,8 @@
 #include "SimpleText.h"
 #include "ParticleSystem/ParticleEmitter.h"
 #include "timerclass.h"
+#include "AIAgent.h"
+#include "AISystem.h"
 
 using namespace std;
 using namespace DirectX;
@@ -40,5 +42,8 @@ private:
 	SimpleText* m_SimpleText;
 	int numberOfUnattachedObjects;
 	int numberOfAttachedObjects;
+
+	AIAgent* m_AIAgent;
+	AISystem* m_AISystem;
 };
 #endif

@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "AISystem.h"
 
 //Scene class to derive from
 
@@ -134,6 +135,17 @@ bool Scene::Init(int sWidth, int sHeight, HWND hwnd)
 	m_Katavictim3->Place(Vector3(-2.0f, -0.35f, 0.0f));
 	m_Graphics->SetRenderable((Gameobject*)m_Katavictim3, m_Katavictim3->m_Model);
 
+	m_AISystem = new AISystem;
+
+	/*m_AIAgent = new AIAgent(m_Camera);
+	result = m_AIAgent->Init(hwnd, "Data\\Objects\\sphere.obj", L"../Engine/green.tga", Vector3(1.0f, 1.0f, 1.0f), m_Graphics->m_D3D);
+	m_Graphics->SetRenderable((Gameobject*)m_AIAgent, m_AIAgent->m_Model);
+	m_AIAgent->SetBTFilename(L"test_BTHummerI.bt");
+
+	m_AISystem->AddAgent(m_AIAgent);*/
+
+	m_AISystem->Init();
+
 	m_Gameplane = new Gameplane;
 	result = m_Gameplane->Init(hwnd, m_Graphics->m_D3D);
 	m_Graphics->SetRenderable((Gameobject*)m_Gameplane, m_Gameplane->m_Model);
@@ -146,7 +158,7 @@ bool Scene::Init(int sWidth, int sHeight, HWND hwnd)
 
 	
 	// Create the particle system object.
-	m_SmokeEmitter = new ParticleEmitter;
+	/*m_SmokeEmitter = new ParticleEmitter;
 
 	Emitter Smoke;
 
@@ -198,16 +210,16 @@ bool Scene::Init(int sWidth, int sHeight, HWND hwnd)
 		return false;
 	}
 
-	m_Graphics->SetRenderableEmitter(m_SnowEmitter);
+	m_Graphics->SetRenderableEmitter(m_SnowEmitter);*/
 
 	return result;
 }
 
 bool Scene::Update(int axisX,int axisY, float DeltaSeconds)
 {
-	/*
+	
 	//todo: move to katamari update
-	if (axisX != 0 || axisY != 0) {
+	/*if (axisX != 0 || axisY != 0) {
 		m_Katamari->Translate(Vector3(axisX, 0.0f, axisY));
 		m_Camera->Follow(m_Katamari->m_Transform->trs, Vector3(0.0f, 9.0f, -25.0f));
 		if (m_Katavictim->m_HasParent)
@@ -235,7 +247,7 @@ bool Scene::Update(int axisX,int axisY, float DeltaSeconds)
 	}
 
 
-	//todo: move to katavictim update
+	/*//todo: move to katavictim update
 	if (m_Katamari->IsCloser(m_Katavictim, 1.0f) && !m_Katavictim->m_HasParent) 
 	{
 		m_Katavictim->AttachTo(m_Katamari);
@@ -253,7 +265,7 @@ bool Scene::Update(int axisX,int axisY, float DeltaSeconds)
 		m_Katavictim3->AttachTo(m_Katamari);
 		numberOfAttachedObjects++;
 		numberOfUnattachedObjects--;
-	}
+	}*/
 
 	// this what makes light rotate around area
 	static float lightPositionX = -20.0f;
@@ -269,6 +281,7 @@ bool Scene::Update(int axisX,int axisY, float DeltaSeconds)
 	// Update the position of the light.
 	m_Light->SetPosition(lightPositionX, 15.0f, -30.0f);
 
+	m_AISystem->Update(DeltaSeconds);
 
 	m_Graphics->Render(DeltaSeconds, m_Camera, m_Light, m_SimpleText, numberOfUnattachedObjects, numberOfAttachedObjects);
 

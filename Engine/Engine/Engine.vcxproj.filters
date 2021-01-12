@@ -43,6 +43,18 @@
     <Filter Include="Файлы заголовков\Engine\Katamari">
       <UniqueIdentifier>{5195d310-5f53-4435-b81f-80c85e34b169}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\AISystem">
+      <UniqueIdentifier>{8ecc8527-9845-43d4-9e47-600b02bef890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\AISystem">
+      <UniqueIdentifier>{41049612-a897-4ca7-9238-21c0e21c4d15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\XMLReading">
+      <UniqueIdentifier>{8977569f-02d7-4894-8277-d6aa3617a9a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\XMLReading">
+      <UniqueIdentifier>{b05ca918-c053-40b0-b89b-e871a00be80a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="d3dclass.cpp">
@@ -107,6 +119,48 @@
     </ClCompile>
     <ClCompile Include="ParticleSystem\ParticleEmitter.cpp">
       <Filter>Исходные файлы\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="AISystem\Obstacle.cpp">
+      <Filter>Исходные файлы\AISystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AISystem\Path.cpp">
+      <Filter>Исходные файлы\AISystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AISystem\Pathway.cpp">
+      <Filter>Исходные файлы\AISystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AISystem\SimpleVehicle.cpp">
+      <Filter>Исходные файлы\AISystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AISystem\Color.cpp">
+      <Filter>Исходные файлы\AISystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AISystem\Vec3.cpp">
+      <Filter>Исходные файлы\AISystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AISystem\Vec3Utilities.cpp">
+      <Filter>Исходные файлы\AISystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AIAgent.cpp">
+      <Filter>Исходные файлы\AISystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AISystem.cpp">
+      <Filter>Исходные файлы\AISystem</Filter>
+    </ClCompile>
+    <ClCompile Include="XMLReading\string_help.cpp">
+      <Filter>Исходные файлы\XMLReading</Filter>
+    </ClCompile>
+    <ClCompile Include="XMLReading\xml_help.cpp">
+      <Filter>Исходные файлы\XMLReading</Filter>
+    </ClCompile>
+    <ClCompile Include="XMLReading\pugixml.cpp">
+      <Filter>Исходные файлы\XMLReading</Filter>
+    </ClCompile>
+    <ClCompile Include="AISystem\AIObjectManager.cpp">
+      <Filter>Исходные файлы\AISystem</Filter>
+    </ClCompile>
+    <ClCompile Include="math_statics.cpp">
+      <Filter>Исходные файлы\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +229,72 @@
     </ClInclude>
     <ClInclude Include="ParticleSystem\ParticleEmitter.h">
       <Filter>Файлы заголовков\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem\Obstacle.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem\Path.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem\Pathway.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem\SimpleVehicle.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem\SteerLibrary.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem\AbstractVehicle.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem\Color.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem\Utilities.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem\Annotation.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem\LocalSpace.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem\Vec3.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem\Vec3Utilities.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem\BrainTree.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AIAgent.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="BTActions.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLReading\string_help.h">
+      <Filter>Файлы заголовков\XMLReading</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLReading\xml_help.h">
+      <Filter>Файлы заголовков\XMLReading</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLReading\pugiconfig.hpp">
+      <Filter>Исходные файлы\XMLReading</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLReading\pugixml.hpp">
+      <Filter>Исходные файлы\XMLReading</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem\AIObjectManager.h">
+      <Filter>Файлы заголовков\AISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="math_statics.h">
+      <Filter>Файлы заголовков\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

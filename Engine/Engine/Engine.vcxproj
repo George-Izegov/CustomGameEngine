@@ -153,6 +153,16 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AIAgent.cpp" />
+    <ClCompile Include="AISystem.cpp" />
+    <ClCompile Include="AISystem\AIObjectManager.cpp" />
+    <ClCompile Include="AISystem\Color.cpp" />
+    <ClCompile Include="AISystem\Obstacle.cpp" />
+    <ClCompile Include="AISystem\Path.cpp" />
+    <ClCompile Include="AISystem\Pathway.cpp" />
+    <ClCompile Include="AISystem\SimpleVehicle.cpp" />
+    <ClCompile Include="AISystem\Vec3.cpp" />
+    <ClCompile Include="AISystem\Vec3Utilities.cpp" />
     <ClCompile Include="cameraclass.cpp" />
     <ClCompile Include="d3dclass.cpp" />
     <ClCompile Include="depthshaderclass.cpp" />
@@ -163,6 +173,7 @@
     <ClCompile Include="KataVictim.cpp" />
     <ClCompile Include="lightclass.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="math_statics.cpp" />
     <ClCompile Include="modelclass.cpp" />
     <ClCompile Include="Gameplane.cpp" />
     <ClCompile Include="ParticleSystem\ParticleEmitter.cpp" />
@@ -174,8 +185,28 @@
     <ClCompile Include="systemclass.cpp" />
     <ClCompile Include="textureclass.cpp" />
     <ClCompile Include="timerclass.cpp" />
+    <ClCompile Include="XMLReading\pugixml.cpp" />
+    <ClCompile Include="XMLReading\string_help.cpp" />
+    <ClCompile Include="XMLReading\xml_help.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIAgent.h" />
+    <ClInclude Include="AISystem.h" />
+    <ClInclude Include="AISystem\AbstractVehicle.h" />
+    <ClInclude Include="AISystem\AIObjectManager.h" />
+    <ClInclude Include="AISystem\Annotation.h" />
+    <ClInclude Include="AISystem\BrainTree.h" />
+    <ClInclude Include="AISystem\Color.h" />
+    <ClInclude Include="AISystem\LocalSpace.h" />
+    <ClInclude Include="AISystem\Obstacle.h" />
+    <ClInclude Include="AISystem\Path.h" />
+    <ClInclude Include="AISystem\Pathway.h" />
+    <ClInclude Include="AISystem\SimpleVehicle.h" />
+    <ClInclude Include="AISystem\SteerLibrary.h" />
+    <ClInclude Include="AISystem\Utilities.h" />
+    <ClInclude Include="AISystem\Vec3.h" />
+    <ClInclude Include="AISystem\Vec3Utilities.h" />
+    <ClInclude Include="BTActions.h" />
     <ClInclude Include="cameraclass.h" />
     <ClInclude Include="d3dclass.h" />
     <ClInclude Include="depthshaderclass.h" />
@@ -186,6 +217,7 @@
     <ClInclude Include="Katamari.h" />
     <ClInclude Include="KataVictim.h" />
     <ClInclude Include="lightclass.h" />
+    <ClInclude Include="math_statics.h" />
     <ClInclude Include="modelclass.h" />
     <ClInclude Include="ParticleSystem\ParticleEmitter.h" />
     <ClInclude Include="ParticleSystem\ParticleGlobals.h" />
@@ -198,6 +230,10 @@
     <ClInclude Include="systemclass.h" />
     <ClInclude Include="textureclass.h" />
     <ClInclude Include="timerclass.h" />
+    <ClInclude Include="XMLReading\pugiconfig.hpp" />
+    <ClInclude Include="XMLReading\pugixml.hpp" />
+    <ClInclude Include="XMLReading\string_help.h" />
+    <ClInclude Include="XMLReading\xml_help.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="color.ps" />

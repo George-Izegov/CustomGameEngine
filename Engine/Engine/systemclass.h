@@ -5,6 +5,7 @@
 #include "inputclass.h"
 #include "Scene.h"
 #include "timerclass.h"
+#include "AISystem.h"
 
 class SystemClass
 {

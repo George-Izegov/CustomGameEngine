@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<BehaviorTree BlackboardFilename = "test_blackboard.bb">
+	<Node id = "0" Name = "Selector">
+		<Childs> 
+			<Child id = "1" />
+			<Child id = "3" />
+		</Childs>
+	</Node>
+	
+	<Node id = "1" Name = "CheckForHummer">
+		<Childs> 
+			<Child id = "2" />
+		</Childs>
+	</Node>
+
+	<Node id = "2" Name = "MoveOut">
+		<Childs> 
+		</Childs>
+	</Node>
+
+	<Node id = "3" Name = "Sequence">
+		<Childs> 
+			<Child id = "4" />
+			<Child id = "5" />
+		</Childs>
+	</Node>
+
+	<Node id = "4" Name = "RandomPosition" BBPositionName = "GoalPoint" radius = "100.0" />
+
+	<Node id = "5" Name = "MoveTo" BBPositionName = "GoalPoint"/>
+	
+
+
+</BehaviorTree>
+
