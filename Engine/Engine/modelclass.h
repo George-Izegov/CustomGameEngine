@@ -43,7 +43,7 @@ private:
 	HRESULT LoadTexture(ID3D11Device*, LPCWSTR);
 	void ReleaseTexture();
 
-	HRESULT LoadModel(std::string path);
+	HRESULT LoadModel(std::string);
 	HRESULT InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
 	void RenderBuffers(ID3D11DeviceContext*);

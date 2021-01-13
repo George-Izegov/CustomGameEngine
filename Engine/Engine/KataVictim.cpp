@@ -46,7 +46,7 @@ HRESULT KataVictim::Init(HWND hwnd, ID3D11Device* g_pd3dDevice)
 		return E_FAIL;
 	}
 	// Initialize the model.
-	result = m_Model->Initialize(g_pd3dDevice, "GameEngine/Data/Objects/rubiks-cube.obj", L"GameEngine/Data/Objects/moonmap.tga");
+	result = m_Model->Initialize(g_pd3dDevice, "Data/Objects/rubiks-cube.obj", L"Data/Objects/moonmap.tga");
 	if (FAILED(result))
 	{
 		MessageBox(hwnd, L"Could not initialize Cube model.", L"Error", MB_OK);

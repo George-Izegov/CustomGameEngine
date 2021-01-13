@@ -37,7 +37,7 @@ HRESULT Katamari::Init(HWND hwnd, ID3D11Device* g_pd3dDevice)
 		return E_FAIL;
 	}
 	// Initialize the model.
-	result = m_Model->Initialize(g_pd3dDevice, "GameEngine/Data/Objects/sphere.obj", L"GameEngine/Data/Objects/earth.tga");
+	result = m_Model->Initialize(g_pd3dDevice, "Data/Objects/sphere.obj", L"Data/Objects/earth.tga");
 	if (FAILED(result))
 	{
 		MessageBox(hwnd, L"Could not initialize Katamari model.", L"Error", MB_OK);

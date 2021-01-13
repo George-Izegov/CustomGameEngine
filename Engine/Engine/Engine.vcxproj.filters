@@ -43,15 +43,24 @@
     <Filter Include="Файлы заголовков\Engine\Katamari">
       <UniqueIdentifier>{5195d310-5f53-4435-b81f-80c85e34b169}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Core\backends">
+      <UniqueIdentifier>{f03029d2-357e-484b-872c-2f66b5e752be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Core\imgui">
+      <UniqueIdentifier>{718a7977-20d1-4d2e-b793-f3bd203470c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Core\backends">
+      <UniqueIdentifier>{8541df3d-a9e3-4958-a5a6-45a39f1ee9ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Core\imgui">
+      <UniqueIdentifier>{5d90313f-143d-4a67-83b3-21eea8d751e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="d3dclass.cpp">
       <Filter>Исходные файлы\Core</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="systemclass.cpp">
       <Filter>Исходные файлы\Core</Filter>
     </ClCompile>
     <ClCompile Include="textureclass.cpp">
@@ -111,6 +120,24 @@
     <ClCompile Include="orthowindowclass.cpp">
       <Filter>Исходные файлы\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="backends\imgui_impl_dx11.cpp">
+      <Filter>Исходные файлы\Core\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="backends\imgui_impl_win32.cpp">
+      <Filter>Исходные файлы\Core\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui.cpp">
+      <Filter>Исходные файлы\Core\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_demo.cpp">
+      <Filter>Исходные файлы\Core\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_draw.cpp">
+      <Filter>Исходные файлы\Core\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>Исходные файлы\Core\imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="d3dclass.h">
@@ -136,9 +163,6 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Файлы заголовков\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="systemclass.h">
-      <Filter>Файлы заголовков\Core</Filter>
     </ClInclude>
     <ClInclude Include="textureclass.h">
       <Filter>Файлы заголовков\Rendering</Filter>
@@ -179,6 +203,30 @@
     <ClInclude Include="orthowindowclass.h">
       <Filter>Файлы заголовков\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="imgui\imstb_truetype.h">
+      <Filter>Файлы заголовков\Core\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imconfig.h">
+      <Filter>Файлы заголовков\Core\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui.h">
+      <Filter>Файлы заголовков\Core\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_internal.h">
+      <Filter>Файлы заголовков\Core\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_rectpack.h">
+      <Filter>Файлы заголовков\Core\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_textedit.h">
+      <Filter>Файлы заголовков\Core\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="backends\imgui_impl_dx11.h">
+      <Filter>Файлы заголовков\Core\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="backends\imgui_impl_win32.h">
+      <Filter>Файлы заголовков\Core\backends</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="color.vs">
@@ -206,12 +254,6 @@
     <None Include="shadow.ps">
       <Filter>Файлы ресурсов</Filter>
     </None>
-    <None Include="depth.vs">
-      <Filter>Файлы ресурсов</Filter>
-    </None>
-    <None Include="depth.ps">
-      <Filter>Файлы ресурсов</Filter>
-    </None>
     <None Include="deferredlight.vs">
       <Filter>Файлы ресурсов</Filter>
     </None>
@@ -224,9 +266,18 @@
     <None Include="deferred.vs">
       <Filter>Файлы ресурсов</Filter>
     </None>
+    <None Include="calc.py">
+      <Filter>Исходные файлы\Core</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="C:\Users\Владислав\Desktop\brick.tga">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="earth.tga">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="moonmap.tga">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>
@@ -234,5 +285,18 @@
     <Text Include="cube.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="misc\natvis\imgui.natvis">
+      <Filter>Файлы ресурсов</Filter>
+    </Natvis>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="depth.ps">
+      <Filter>Файлы ресурсов</Filter>
+    </FxCompile>
+    <FxCompile Include="depth.vs">
+      <Filter>Файлы ресурсов</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

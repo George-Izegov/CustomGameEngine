@@ -20,7 +20,7 @@ IMGUI_IMPL_API bool     ImGui_ImplDX11_Init(ID3D11Device*, ID3D11DeviceContext*)
 IMGUI_IMPL_API void     ImGui_ImplDX11_Shutdown();
 IMGUI_IMPL_API void     ImGui_ImplDX11_NewFrame(int, int);
 IMGUI_IMPL_API void     ImGui_ImplDX11_RenderDrawData(ImDrawData*, int, int, float, float);
-IMGUI_IMPL_API void     ImGui_ImplDX11_UpdateRenderData(ID3D11RenderTargetView*, ImVec4, ID3D11DepthStencilView*&);
+IMGUI_IMPL_API void     ImGui_ImplDX11_UpdateRenderData(ID3D11RenderTargetView*, ImVec4, ID3D11DepthStencilView*&, ID3D11DepthStencilState*&);
 
 // Use if you want to reset your rendering device without losing Dear ImGui state.
 IMGUI_IMPL_API void     ImGui_ImplDX11_InvalidateDeviceObjects();

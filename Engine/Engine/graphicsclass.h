@@ -45,10 +45,10 @@ public:
 	bool Frame();
 
 
-	bool Render(ID3D11DeviceContext*, IDXGISwapChain*, ID3D11RenderTargetView*, ID3D11DepthStencilView*, ImVec4, CameraClass*, LightClass*, SimpleText*, UINT32, UINT32, Matrix, Matrix, Matrix);
+	bool Render(ID3D11DeviceContext*, IDXGISwapChain*, ID3D11RenderTargetView*, ID3D11DepthStencilView*, ID3D11DepthStencilState*, ImVec4, CameraClass*, LightClass*, SimpleText*, UINT32, UINT32, Matrix, Matrix, Matrix);
 	void SetRenderable(Gameobject*, ModelClass*);
-	bool RenderDepthToTexture(LightClass*);
-	bool RenderSceneToTexture(ID3D11DeviceContext*, LightClass*, Matrix, ID3D11RenderTargetView*, ID3D11DepthStencilView*);
+	bool RenderDepthToTexture(ID3D11DeviceContext*,LightClass*,Matrix);
+	bool RenderSceneToTexture(ID3D11DeviceContext*, LightClass*, CameraClass*, Matrix, Matrix, ID3D11RenderTargetView*, ID3D11DepthStencilView*);
 	void BeginScene(ID3D11DeviceContext*, IDXGISwapChain*, ID3D11RenderTargetView*, ID3D11DepthStencilView*, ImVec4);
 	void EndScene(IDXGISwapChain*);
 	std::vector<Gameobject*> m_GameobjsPool;

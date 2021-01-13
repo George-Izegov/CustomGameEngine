@@ -645,9 +645,11 @@ void ImGui_ImplDX11_NewFrame(int screenWidth, int screenHeight)
         ImGui_ImplDX11_CreateDeviceObjects(screenWidth, screenHeight);
 }
 
-void ImGui_ImplDX11_UpdateRenderData(ID3D11RenderTargetView* renderTargetView, ImVec4 color, ID3D11DepthStencilView*& depthStencilView)
+void ImGui_ImplDX11_UpdateRenderData(ID3D11RenderTargetView* renderTargetView, ImVec4 color, ID3D11DepthStencilView*& depthStencilView,
+    ID3D11DepthStencilState*& depthStencilState)
 {
     g_pColor = color;
     g_pRenderTargetView = renderTargetView;
     depthStencilView = g_pDepthStencilView;
+    depthStencilState = g_pDepthStencilState;
 }

@@ -43,7 +43,7 @@ HRESULT Gameplane::Init(HWND hwnd, ID3D11Device* g_pd3dDevice)
 		return E_FAIL;
 	}
 	// Initialize the model.
-	result = m_Model->Initialize(g_pd3dDevice, "GameEngine/Data/Objects/plane.obj", L"GameEngine/Data/Objects/brick.tga");
+	result = m_Model->Initialize(g_pd3dDevice, "Data/Objects/plane.obj", L"Data/Objects/brick.tga");
 	if (FAILED(result))
 	{
 		MessageBox(hwnd, L"Could not initialize Plane.", L"Error", MB_OK);

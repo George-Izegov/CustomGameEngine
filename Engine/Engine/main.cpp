@@ -19,6 +19,8 @@ static ID3D11DeviceContext*     g_pd3dDeviceContext = NULL;
 static IDXGISwapChain*          g_pSwapChain = NULL;
 static ID3D11RenderTargetView*  g_mainRenderTargetView = NULL;
 static ID3D11DepthStencilView*  g_pDepthStencilView = NULL;
+static ID3D11DepthStencilState* g_depthStencilState = NULL;
+
 static int                      screenWidth = 1280;
 static int                      screenHeight = 800;
 static const float              screenDepth = 200.0f;
@@ -60,7 +62,7 @@ int main(int, char**)
 {
     Py_Initialize();
     PyRun_SimpleString("import sys;\n");
-    PyRun_SimpleString("sys.path.append(r'D:\\ITMO\\3 Semester\\Game Engine Dev\\Game Engine\\GameEngine\\GameEngine\')");//the folder where the calc.py is located*/
+    PyRun_SimpleString("sys.path.append(r'D:\\github\\\DX\\CustomGameEngine\\Engine\\Engine\')");//the folder where the calc.py is located*/
     PyRun_SimpleString("print(sys.path);");
     pName = PyUnicode_FromString(MOD_NAME);
     if (pName == NULL) {
@@ -252,7 +254,7 @@ int main(int, char**)
         // Rendering
         ImGui::Render();
         g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, NULL);
-        ImGui_ImplDX11_UpdateRenderData(g_mainRenderTargetView, clear_color, g_pDepthStencilView);
+        ImGui_ImplDX11_UpdateRenderData(g_mainRenderTargetView, clear_color, g_pDepthStencilView, g_depthStencilState);
         /*g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, NULL);
         g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, (float*)&clear_color);*/
         ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData(), screenWidth, screenHeight, screenDepth, screenNear);
@@ -275,7 +277,8 @@ int main(int, char**)
         g_pSwapChain->Present(0, 0); // Present with vsync
         //g_pSwapChain->Present(0, 0); // Present without vsync
 
-        m_Scene->Update(g_pd3dDeviceContext, g_pSwapChain, g_mainRenderTargetView, g_pDepthStencilView, clear_color, axisX, axisY, g_pProjectionMatrix, g_pWorldMatrix, g_pOrthoMatrix);
+        m_Scene->Update(g_pd3dDeviceContext, g_pSwapChain, g_mainRenderTargetView, g_pDepthStencilView, g_depthStencilState,
+            clear_color, axisX, axisY, g_pProjectionMatrix, g_pWorldMatrix, g_pOrthoMatrix);
     }
 
     // Cleanup

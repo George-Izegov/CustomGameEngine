@@ -126,24 +126,24 @@ HRESULT Scene::Init(ID3D11Device* g_pd3dDevice, ID3D11RenderTargetView* g_mainRe
 	m_Light->SetPosition(-10.0f, 15.0f, -30.0f);
 
 	m_Katamari = new Katamari;
-	result = m_Katamari->Init(hwnd, m_Graphics->m_D3D);
+	result = m_Katamari->Init(hwnd, g_pd3dDevice);
 	m_Graphics->SetRenderable((Gameobject*)m_Katamari, m_Katamari->m_Model);
 
 	m_Katavictim = new KataVictim;
-	result = m_Katavictim->Init(hwnd, "Data\\Objects\\Item Bag.obj", L"../Engine/moneybag.tga", Vector3(1.75f, 1.75f, 1.75f), g_pd3dDevice);
+	result = m_Katavictim->Init(hwnd, L"Data\\Objects\\Item Bag.obj", L"../Engine/moneybag.tga", Vector3(1.75f, 1.75f, 1.75f), g_pd3dDevice);
 
 	m_Katavictim->Place(Vector3(10.0f, -0.35f, 0.0f));
 	m_Graphics->SetRenderable((Gameobject*)m_Katavictim, m_Katavictim->m_Model);
 
 	m_Katavictim2 = new KataVictim;
-	result = m_Katavictim2->Init(hwnd, "Data\\Objects\\hammer.obj", L"../Engine/hammer.tga", Vector3(0.25f, 0.25f, 0.25f), g_pd3dDevice);
+	result = m_Katavictim2->Init(hwnd, L"Data\\Objects\\hammer.obj", L"../Engine/hammer.tga", Vector3(0.25f, 0.25f, 0.25f), g_pd3dDevice);
 
 	m_Katavictim2->Place(Vector3(-4.0f, -0.7f, 3.0f));
 	m_Graphics->SetRenderable((Gameobject*)m_Katavictim2, m_Katavictim2->m_Model);
 
 	m_Katavictim3 = new KataVictim;
 
-	result = m_Katavictim3->Init(hwnd, "Data\\Objects\\Teapot.obj", L"../Engine/teapot.tga", Vector3(7.0f, 7.0f, 7.0f), g_pd3dDevice);
+	result = m_Katavictim3->Init(hwnd, L"Data\\Objects\\Teapot.obj", L"../Engine/teapot.tga", Vector3(7.0f, 7.0f, 7.0f), g_pd3dDevice);
 	m_Katavictim3->Place(Vector3(-2.0f, -0.35f, 0.0f));
 	m_Graphics->SetRenderable((Gameobject*)m_Katavictim3, m_Katavictim3->m_Model);
 
@@ -165,7 +165,10 @@ HRESULT Scene::Init(ID3D11Device* g_pd3dDevice, ID3D11RenderTargetView* g_mainRe
 	return result;
 }
 
-bool Scene::Update(int axisX,int axisY)
+bool Scene::Update(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapChain* g_pSwapChain, 
+	ID3D11RenderTargetView* g_mainRenderTargetView, ID3D11DepthStencilView* g_pDepthStencilView, 
+	ID3D11DepthStencilState* depthStencilState, ImVec4 color, int axisX, int axisY, Matrix g_pProjectionMatrix, 
+	Matrix g_pWorldMatrix, Matrix g_pOrthoMatrix)
 {
 	//todo: move to katamari update
 	if (axisX != 0 || axisY != 0) {
@@ -226,6 +229,8 @@ bool Scene::Update(int axisX,int axisY)
 	// Update the position of the light.
 	m_Light->SetPosition(lightPositionX, 15.0f, -30.0f);
 
-	m_Graphics->Render(g_pd3dDeviceContext, g_pSwapChain, g_mainRenderTargetView, g_pDepthStencilView, color, m_Camera, m_Light, m_SimpleText, numberOfUnattachedObjects, numberOfAttachedObjects, g_pProjectionMatrix, g_pWorldMatrix, g_pOrthoMatrix);
+	m_Graphics->Render(g_pd3dDeviceContext, g_pSwapChain, g_mainRenderTargetView, g_pDepthStencilView, depthStencilState,
+		color, m_Camera, m_Light, m_SimpleText, numberOfUnattachedObjects, numberOfAttachedObjects,
+		g_pProjectionMatrix, g_pWorldMatrix, g_pOrthoMatrix);
 	return true;
 }
