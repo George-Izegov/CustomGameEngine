@@ -62,7 +62,7 @@ int main(int, char**)
 {
     Py_Initialize();
     PyRun_SimpleString("import sys;\n");
-    PyRun_SimpleString("sys.path.append(r'C:\\MyPrograms\\CustomEngine\\Engine\\Engine\')");//the folder where the calc.py is located*/
+    PyRun_SimpleString("sys.path.append(r'C:\\CustomGameEngine\\Engine\\Engine\')");//the folder where the calc.py is located*/
     PyRun_SimpleString("print(sys.path);");
     pName = PyUnicode_FromString(MOD_NAME);
     if (pName == NULL) {

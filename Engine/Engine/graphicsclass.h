@@ -24,7 +24,7 @@ enum RendererType
 	FORWARD,DEFERRED
 };
 
-const RendererType RENDERER = DEFERRED;
+const RendererType RENDERER = FORWARD;
 
 
 const bool FULL_SCREEN = false;

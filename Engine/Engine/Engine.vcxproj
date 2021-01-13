@@ -76,8 +76,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\George\AppData\Local\Programs\Python\Python39;C:\Users\George\AppData\Local\Programs\Python\Python39\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\George\AppData\Local\Programs\Python\Python39\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\Python39;C:\Program Files\Python39\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Python39\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -114,7 +114,7 @@ python39_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\George\AppData\Local\Programs\Python\Python39;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\Python39;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>

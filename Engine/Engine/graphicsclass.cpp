@@ -415,10 +415,29 @@ bool GraphicsClass::Render(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapCh
 		orthoMatrix = g_pOrthoMatrix;
 		m_Camera->GetViewMatrix(baseBiewMatrix);
 
+		EnableAlphaBlending(g_pd3dDeviceContext);
+
+		for (UINT i = 0; i < m_Emitters.size(); i++)
+		{
+			// Put the particle system vertex and index buffers on the graphics pipeline to prepare them for drawing.
+			m_Emitters[i]->Render(g_pd3dDeviceContext, m_Camera->GetPosition());
+
+			worldMatrix = m_Emitters[i]->GetWorldMatrix();
+			// Render the model using the texture shader.
+			result = m_ParticleShader->Render(1.0f / 60.0f, g_pd3dDeviceContext, m_Emitters[i]->GetIndexCount(), worldMatrix, baseBiewMatrix, g_pProjectionMatrix,
+				m_Camera->GetPosition(), m_Emitters[i]->GetTexture());
+
+			if (!result)
+				return false;
+		}
+
+		DisableAlphaBlending(g_pd3dDeviceContext);
+
 		//m_D3D->TurnZBufferOff();
 		g_pd3dDeviceContext->OMSetDepthStencilState(NULL, 1);
 
 		m_FullScreenWindow->Render(g_pd3dDeviceContext);
+
 		// Render models using the ambient light shader.
 		result = m_PostProcessing->Render(g_pd3dDeviceContext, m_FullScreenWindow->GetIndexCount(), worldMatrix, baseBiewMatrix, orthoMatrix,
 			m_DeferredBuffers->GetShaderResourceViews(0), m_DeferredBuffers->GetShaderResourceViews(1), m_DeferredBuffers->GetShaderResourceViews(2));
@@ -448,6 +467,11 @@ bool GraphicsClass::Render(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapCh
 			return false;
 		}
 
+		// Set the render buffers to be the render target.
+		m_DeferredBuffers->SetRenderTargets(g_pd3dDeviceContext);
+
+		g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, g_pDepthStencilView);
+
 		// Clear the buffers to begin the scene.
 		BeginScene(g_pd3dDeviceContext, g_pSwapChain, g_mainRenderTargetView, g_pDepthStencilView, color);
 
@@ -463,12 +487,8 @@ bool GraphicsClass::Render(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapCh
 		worldMatrix = g_pWorldMatrix;
 		projectionMatrix = g_pProjectionMatrix;
 
-		// Get the light's view and projection matrices from the light object.
-		m_Light->GetViewMatrix(lightViewMatrix);
-		m_Light->GetProjectionMatrix(lightProjectionMatrix);
-
 		EnableAlphaBlending(g_pd3dDeviceContext);
-	
+
 		for (UINT i = 0; i < m_Emitters.size(); i++)
 		{
 			// Put the particle system vertex and index buffers on the graphics pipeline to prepare them for drawing.
@@ -476,7 +496,7 @@ bool GraphicsClass::Render(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapCh
 
 			worldMatrix = m_Emitters[i]->GetWorldMatrix();
 			// Render the model using the texture shader.
-			result = m_ParticleShader->Render(1.0f/60.0f, g_pd3dDeviceContext, m_Emitters[i]->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
+			result = m_ParticleShader->Render(1.0f / 60.0f, g_pd3dDeviceContext, m_Emitters[i]->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
 				m_Camera->GetPosition(), m_Emitters[i]->GetTexture());
 
 			if (!result)
@@ -484,6 +504,10 @@ bool GraphicsClass::Render(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapCh
 		}
 
 		DisableAlphaBlending(g_pd3dDeviceContext);
+
+		// Get the light's view and projection matrices from the light object.
+		m_Light->GetViewMatrix(lightViewMatrix);
+		m_Light->GetProjectionMatrix(lightProjectionMatrix);
 
 		for (UINT i = 0; i < m_ModelsPool.size(); i++)
 		{

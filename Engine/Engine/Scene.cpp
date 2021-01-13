@@ -173,36 +173,30 @@ HRESULT Scene::Init(ID3D11Device* g_pd3dDevice, ID3D11RenderTargetView* g_mainRe
 	swprintf(pretext, 200, L"Количество свободных объектов на сцене: %u\nКоличество прикрепленных объектов на сцене: %u", numberOfUnattachedObjects, numberOfAttachedObjects);
 	m_SimpleText->DrawTextOnScene(480, 60, pretext);*/
 
-	
-	// Create the particle system object.
-	/*m_SmokeEmitter = new ParticleEmitter;
+	ParticleEmitter* Dum = new ParticleEmitter;
+	Emitter dumEmit;
+	dumEmit.ParticlePerSec = 1;
+	dumEmit.EmitterPosition = Vector3(0, 8, 30);
+	dumEmit.ParticleSpawnDeviation = Vector3(20, 20, 0);
+	dumEmit.ParticleSize = 0.1f;
+	dumEmit.StartVelocity = Vector3(0.0f, 0.0f, 0.0f);
+	dumEmit.VelDeviation = Vector3(20.0f, 6.0f, 1.0f);
+	dumEmit.ParticleColor = Vector4(0.7f, 0.0f, 0.7f, 1.0f);
+	dumEmit.ColorDeviation = Vector4(0.4f, 0.4f, 0.4f, 0.0f);
+	dumEmit.EffectedForce = Vector3(20.0f, 0.0f, 0.0f);
+	dumEmit.ParticlesLifetime = 2.0f;
+	dumEmit.LifetimeDeviation = 1.0f;
+	dumEmit.ParticlesMass = 1.0f;
+	dumEmit.MassDeviation = 0.5f;
 
-	Emitter Smoke;
-
-	Smoke.EmitterPosition = Vector3(0, 0, 0);
-	Smoke.ParticleSpawnDeviation = Vector3(2, 2, 2);
-	Smoke.ParticleSize = 5.0f;
-	Smoke.StartVelocity = Vector3(0.0f, 5.0f, 0.0f);
-	Smoke.VelDeviation = Vector3(2.0f, 2.0f, 2.0f);
-	Smoke.ParticlePerSec = 20;
-	Smoke.ParticleColor = Vector4(0.7f, 0.7f, 0.7f, 0.7f);
-	Smoke.ColorDeviation = Vector4(0.3f, 0.3f, 0.3f, 0.3f);
-	Smoke.EffectedForce = Vector3(0.0f, 10.0f, 0.0f);
-	Smoke.ParticlesLifetime = 5.0f;
-	Smoke.LifetimeDeviation = 2.0f;
-	Smoke.ParticlesMass = 1.0f;
-	Smoke.MassDeviation = 0.0f;
-
-	// Initialize the particle system object.
-	result = m_SmokeEmitter->Initialize(g_pd3dDevice, (WCHAR*) L"../Engine/smoke4.tga", Smoke);
-	if (!result)
+	if (!Dum->Initialize(g_pd3dDevice, (WCHAR*)L"../Engine/brick.tga", dumEmit))
 	{
-		return false;
+		return E_FAIL;
 	}
 
-	m_Graphics->SetRenderableEmitter(m_SmokeEmitter);
-	*/
-	m_SnowEmitter = new ParticleEmitter;
+	m_Graphics->SetRenderableEmitter(Dum);
+	
+	/*m_SnowEmitter = new ParticleEmitter;
 
 	Emitter PinkSnow;
 
@@ -227,7 +221,34 @@ HRESULT Scene::Init(ID3D11Device* g_pd3dDevice, ID3D11RenderTargetView* g_mainRe
 		return E_FAIL;
 	}
 
-	m_Graphics->SetRenderableEmitter(m_SnowEmitter);
+	m_Graphics->SetRenderableEmitter(m_SnowEmitter);*/
+
+	// Create the particle system object.
+	m_SmokeEmitter = new ParticleEmitter;
+
+	Emitter Smoke;
+
+	Smoke.EmitterPosition = Vector3(0, 0, 0);
+	Smoke.ParticleSpawnDeviation = Vector3(2, 2, 2);
+	Smoke.ParticleSize = 5.0f;
+	Smoke.StartVelocity = Vector3(0.0f, 5.0f, 0.0f);
+	Smoke.VelDeviation = Vector3(2.0f, 2.0f, 2.0f);
+	Smoke.ParticlePerSec = 20;
+	Smoke.ParticleColor = Vector4(0.7f, 0.7f, 0.7f, 0.7f);
+	Smoke.ColorDeviation = Vector4(0.3f, 0.3f, 0.3f, 0.3f);
+	Smoke.EffectedForce = Vector3(0.0f, 10.0f, 0.0f);
+	Smoke.ParticlesLifetime = 5.0f;
+	Smoke.LifetimeDeviation = 2.0f;
+	Smoke.ParticlesMass = 1.0f;
+	Smoke.MassDeviation = 0.0f;
+
+	// Initialize the particle system object.
+	if (!m_SmokeEmitter->Initialize(g_pd3dDevice, (WCHAR*)L"../Engine/smoke4.tga", Smoke))
+	{
+		return E_FAIL;
+	}
+
+	m_Graphics->SetRenderableEmitter(m_SmokeEmitter);
 
 	return result;
 }
