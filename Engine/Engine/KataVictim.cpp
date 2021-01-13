@@ -35,45 +35,51 @@ void KataVictim::Unload()
 	}
 }
 
-bool KataVictim::Init(HWND hwnd, D3DClass* d3d)
+
+HRESULT KataVictim::Init(HWND hwnd, ID3D11Device* g_pd3dDevice)
 {
-	bool result;
-	Gameobject::Init(hwnd, d3d);
+	HRESULT result = S_OK;
+	Gameobject::Init(hwnd, g_pd3dDevice);
 	m_Model = new ModelClass();
 	if (!m_Model)
 	{
-		return false;
+		return E_FAIL;
 	}
 	// Initialize the model.
-	result = m_Model->Initialize(Gameobject::m_D3D->GetDevice(), "Data\\Objects\\m_cube.obj", L"../Engine/moonmap.tga");
-	if (!result)
+	result = m_Model->Initialize(g_pd3dDevice, "Data/Objects/rubiks-cube.obj", L"Data/Objects/moonmap.tga");
+	if (FAILED(result))
 	{
-		MessageBox(hwnd, L"Could not initialize model.", L"Error", MB_OK);
-		return false;
+		MessageBox(hwnd, L"Could not initialize Cube model.", L"Error", MB_OK);
+		return E_FAIL;
 	}
 	m_Scale = XMMatrixScaling(0.75f, 0.75f, 0.75f);
-	return result;
+	return S_OK;
 }
 
-bool KataVictim::Init(HWND hwnd, std::string model_filename, LPCWSTR texture_filename, Vector3 new_scale, D3DClass* d3d)
+HRESULT KataVictim::Init(HWND hwnd, LPCWSTR model_filename, LPCWSTR texture_filename, Vector3 new_scale, ID3D11Device* g_pd3dDevice)
 {
-	bool result;
-	Gameobject::Init(hwnd, d3d);
+	HRESULT result = S_OK;
+	Gameobject::Init(hwnd, g_pd3dDevice);
 	m_Model = new ModelClass();
 	if (!m_Model)
 	{
-		return false;
+		return E_FAIL;
 	}
+
+	std::wstring mf = model_filename;
+	std::string str(mf.begin(), mf.end());
 	// Initialize the model.
-	result = m_Model->Initialize(Gameobject::m_D3D->GetDevice(), model_filename, texture_filename);
-	if (!result)
+	result = m_Model->Initialize(g_pd3dDevice, str, texture_filename);
+	if (FAILED(result))
 	{
-		MessageBox(hwnd, L"Could not initialize model.", L"Error", MB_OK);
-		return false;
+		wchar_t pretext[200];
+		swprintf(pretext, 200, L"Could not initialize %s", model_filename);
+		MessageBox(hwnd, model_filename, L"Error", MB_OK);
+		return E_FAIL;
 	}
 	m_Scale = XMMatrixScaling(new_scale.x, new_scale.y, new_scale.z);
 	//m_Scale = XMMatrixScaling(0.75f, 0.75f, 0.75f);
-	return result;
+	return S_OK;
 }
 
 bool KataVictim::Update()

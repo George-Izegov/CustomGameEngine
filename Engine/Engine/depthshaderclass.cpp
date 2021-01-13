@@ -3,7 +3,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "depthshaderclass.h"
 
-
 DepthShaderClass::DepthShaderClass()
 {
 	m_vertexShader = 0;
@@ -23,19 +22,13 @@ DepthShaderClass::~DepthShaderClass()
 }
 
 
-bool DepthShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
+HRESULT DepthShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 {
-	bool result;
-
+	HRESULT result;
 
 	// Initialize the vertex and pixel shaders.
-	result = InitializeShader(device, hwnd, L"../Engine/depth.vs", L"../Engine/depth.ps");
-	if (!result)
-	{
-		return false;
-	}
-
-	return true;
+	result = InitializeShader(device, hwnd, L"depth.vs", L"depth.ps");
+	return result;
 }
 
 
@@ -68,7 +61,8 @@ bool DepthShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount
 }
 
 
-bool DepthShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWSTR vsFilename, LPCWSTR psFilename)
+HRESULT DepthShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWSTR vsFilename, LPCWSTR psFilename)
+
 {
 	HRESULT result;
 	ID3D10Blob* errorMessage;
@@ -85,8 +79,8 @@ bool DepthShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWSTR
 	pixelShaderBuffer = 0;
 
 	// Compile the vertex shader code.
-	result = D3DCompileFromFile(vsFilename, NULL, NULL, "DepthVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
-		&vertexShaderBuffer, NULL);
+    result = D3DCompileFromFile(vsFilename, 0, 0, "DepthVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, &vertexShaderBuffer, &errorMessage);
+
 	if (FAILED(result))
 	{
 		// If the shader failed to compile it should have writen something to the error message.
@@ -99,13 +93,12 @@ bool DepthShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWSTR
 		{
 			MessageBox(hwnd, vsFilename, L"Missing Shader File", MB_OK);
 		}
-
-		return false;
+		return result;
 	}
 
 	// Compile the pixel shader code.
-	result = D3DCompileFromFile(psFilename, NULL, NULL, "DepthPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
-		&pixelShaderBuffer, NULL);
+    result = D3DCompileFromFile(psFilename, 0, 0, "DepthPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, &pixelShaderBuffer, &errorMessage);
+
 	if (FAILED(result))
 	{
 		// If the shader failed to compile it should have writen something to the error message.
@@ -119,21 +112,21 @@ bool DepthShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWSTR
 			MessageBox(hwnd, psFilename, L"Missing Shader File", MB_OK);
 		}
 
-		return false;
+		return result;
 	}
 
 	// Create the vertex shader from the buffer.
 	result = device->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), NULL, &m_vertexShader);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Create the pixel shader from the buffer.
 	result = device->CreatePixelShader(pixelShaderBuffer->GetBufferPointer(), pixelShaderBuffer->GetBufferSize(), NULL, &m_pixelShader);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Create the vertex input layout description.
@@ -153,7 +146,7 @@ bool DepthShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWSTR
 	result = device->CreateInputLayout(polygonLayout, numElements, vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), &m_layout);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Release the vertex shader buffer and pixel shader buffer since they are no longer needed.
@@ -175,10 +168,9 @@ bool DepthShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWSTR
 	result = device->CreateBuffer(&matrixBufferDesc, NULL, &m_matrixBuffer);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
-
-	return true;
+	return result;
 }
 
 

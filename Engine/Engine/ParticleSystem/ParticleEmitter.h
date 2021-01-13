@@ -56,7 +56,7 @@ public:
 	ParticleEmitter(const ParticleEmitter&);
 	~ParticleEmitter();
 
-	bool Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, WCHAR* textureFilename, Emitter& EmitterParameters);
+	bool Initialize(ID3D11Device* device, WCHAR* textureFilename, Emitter& EmitterParameters);
 	void Shutdown();
 	void Render(ID3D11DeviceContext* deviceContext, Vector3 cameraPosition);
 
@@ -68,7 +68,7 @@ public:
 
 private:
 
-	bool InitializeBuffers(ID3D11Device* device, ID3D11DeviceContext* deviceContext);
+	bool InitializeBuffers(ID3D11Device* device);
 	void ShutdownBuffers();
 
 	void RenderBuffers(ID3D11DeviceContext* deviceContext);

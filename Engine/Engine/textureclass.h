@@ -14,7 +14,9 @@ public:
 	TextureClass();
 	TextureClass(const TextureClass&);
 	~TextureClass();
-	bool Initialize(ID3D11Device*, LPCWSTR);
+
+	HRESULT Initialize(ID3D11Device*, LPCWSTR);
+
 	void Shutdown();
 	ID3D11ShaderResourceView* GetTexture();
 

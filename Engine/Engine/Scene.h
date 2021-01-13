@@ -2,9 +2,7 @@
 #define _SCENE_H_
 
 #include "graphicsclass.h"
-#include "Katamari.h"
-#include "KataVictim.h"
-#include "Gameplane.h"
+
 #include <d3d11.h>
 #include "lightclass.h"
 #include <DirectXMath.h>
@@ -13,6 +11,10 @@
 #include "timerclass.h"
 #include "AIAgent.h"
 #include "AISystem.h"
+
+#include "Katamari.h"
+#include "KataVictim.h"
+#include "Gameplane.h"
 
 using namespace std;
 using namespace DirectX;
@@ -24,8 +26,10 @@ public:
 
 	virtual void Load();
 	virtual void  Unload();
-	bool Init(int, int, HWND);
-	virtual bool  Update(int axisX, int axisY, float DeltaSeconds);
+	//virtual bool  Update(int axisX, int axisY, float DeltaSeconds);
+	HRESULT Init(ID3D11Device*, ID3D11RenderTargetView*, int, int, HWND);
+	virtual bool Update(ID3D11DeviceContext*, IDXGISwapChain*, ID3D11RenderTargetView*, ID3D11DepthStencilView*, ID3D11DepthStencilState*, ImVec4, int axisX, int axisY, Matrix g_pProjectionMatrix, Matrix g_pWorldMatrix, Matrix g_pOrthoMatrix);
+
 
 private:
 	
@@ -39,6 +43,8 @@ private:
 	KataVictim* m_Katavictim;
 	KataVictim* m_Katavictim2;
 	KataVictim* m_Katavictim3;
+	KataVictim* m_Katavictim4;
+
 	SimpleText* m_SimpleText;
 	int numberOfUnattachedObjects;
 	int numberOfAttachedObjects;

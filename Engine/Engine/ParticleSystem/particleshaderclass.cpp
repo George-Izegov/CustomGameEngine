@@ -2,7 +2,6 @@
 // Filename: particleshaderclass.cpp
 ////////////////////////////////////////////////////////////////////////////////
 #include "particleshaderclass.h"
-#include "../systemclass.h"
 
 
 ParticleShaderClass::ParticleShaderClass()

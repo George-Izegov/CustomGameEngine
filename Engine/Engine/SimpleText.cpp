@@ -15,10 +15,10 @@ SimpleText::SimpleText() {
 SimpleText::~SimpleText() {
 }
 
-void SimpleText::Init(HWND hwnd_, COLORREF pBrushColor_, D3DClass* m_D3D) {
+void SimpleText::Init(HWND hwnd_, COLORREF pBrushColor_, ID3D11RenderTargetView* g_mainRenderTargetView) {
     hwnd = hwnd_;
     pBrushColor = pBrushColor_;
-    m_renderTargetView = m_D3D->GetRenderTargetView();
+    m_renderTargetView = g_mainRenderTargetView;
     hr = CreateDeviceResources();
 }
 
@@ -39,7 +39,7 @@ HRESULT SimpleText::CreateDeviceResources() {
                 );
             if (FAILED(hr))
             {
-                return false;
+                return E_FAIL;
             }
         }
 
@@ -50,7 +50,7 @@ HRESULT SimpleText::CreateDeviceResources() {
         res->QueryInterface(__uuidof(IDXGISurface), reinterpret_cast<void**>(&surface));
         if (FAILED(hr))
         {
-            return false;
+            return E_FAIL;
         }
 
         this->pD2DFactory_->CreateDxgiSurfaceRenderTarget(
@@ -69,7 +69,7 @@ HRESULT SimpleText::CreateDeviceResources() {
 
         if (FAILED(hr))
         {
-            return false;
+            return E_FAIL;
         }
 
         res->Release();
@@ -119,7 +119,7 @@ void SimpleText::ConfigureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText_)
     
     UINT32 cTextLength_ = (UINT32)wcslen(wszText_);
 
-    pRT_->DrawTextW(
+    pRT_->DrawText(
         wszText_,   // The string to render.
         cTextLength_,    // The string's length.
         pTextFormat_,    // The text format.

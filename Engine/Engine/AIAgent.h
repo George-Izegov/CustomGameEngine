@@ -16,7 +16,7 @@ public:
 
 	void update(const float currentTime, const float elapsedTime) override;
 
-	bool Init(HWND, std::string model_filename, LPCWSTR texture_filename, Vector3, D3DClass*) override;
+	HRESULT Init(HWND, LPCWSTR, LPCWSTR, Vector3, ID3D11Device*) override;
 
 	void SetBTFilename(std::wstring name) { BTFilename = name; }
 

@@ -438,6 +438,11 @@ void D3DClass::Shutdown()
 		m_depthStencilState->Release();
 		m_depthStencilState = 0;
 	}
+	if (m_depthDisabledStencilState)
+	{
+		m_depthDisabledStencilState->Release();
+		m_depthDisabledStencilState = 0;
+	}
 
 	if (m_depthStencilBuffer)
 	{
@@ -513,6 +518,19 @@ void D3DClass::EndScene()
 ID3D11Device* D3DClass::GetDevice()
 {
 	return m_device;
+}
+
+void D3DClass::TurnZBufferOn()
+{
+	m_deviceContext->OMSetDepthStencilState(m_depthStencilState, 1);
+	return;
+}
+
+
+void D3DClass::TurnZBufferOff()
+{
+	m_deviceContext->OMSetDepthStencilState(m_depthDisabledStencilState, 1);
+	return;
 }
 
 

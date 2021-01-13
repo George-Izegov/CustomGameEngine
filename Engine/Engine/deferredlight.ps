@@ -1,0 +1,39 @@
+Texture2D colorTexture : register(t0);
+Texture2D normalTexture : register(t1);
+Texture2D omrTexture : register(t2);
+
+SamplerState SampleTypePoint : register(s0);
+SamplerState SampleTypeWrap : register(s1);
+
+struct PixelInputType
+{
+    float4 position : SV_POSITION;
+    float2 tex : TEXCOORD0;
+};
+
+float4 LightPixelShader(PixelInputType input) : SV_TARGET
+{
+
+    float4 colors; //unlit view
+    float4 normals; //normals view
+    float4 omr; //omr view
+    float4 color;
+
+    float4 depthValue;
+
+
+    //In the light pixel shader we start by retrieving the color data and normals for this pixel using the point sampler.
+
+    // Sample the colors from the color render texture using the point sampler at this texture coordinate location.
+    colors = colorTexture.Sample(SampleTypePoint, input.tex);
+
+    // Sample the normals from the normal render texture using the point sampler at this texture coordinate location.
+    normals = normalTexture.Sample(SampleTypePoint, input.tex);
+
+    //occlision & metallic & roughness map
+    omr = omrTexture.Sample(SampleTypePoint, input.tex);
+
+    color = saturate(colors + omr);
+
+    return color;
+}

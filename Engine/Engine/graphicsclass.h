@@ -1,7 +1,6 @@
 #ifndef _GRAPHICSCLASS_H_
 #define _GRAPHICSCLASS_H_
 #include <windows.h>
-#include "d3dclass.h"
 #include "cameraclass.h"
 #include "modelclass.h"
 #include "lightclass.h"
@@ -10,15 +9,28 @@
 #include "ParticleSystem/ParticleEmitter.h"
 
 #include "rendertextureclass.h"
-#include "depthshaderclass.h"
+
 #include "shadowshaderclass.h"
+#include "deferredshaderclass.h"
+#include "deferredbuffersclass.h"
+#include "deferredpostprocessingclass.h"
+#include "orthowindowclass.h"
+#include "depthshaderclass.h"
+#include "imgui/imgui.h"
 #include "ParticleSystem/particleshaderclass.h"
+
+enum RendererType
+{
+	FORWARD,DEFERRED
+};
+
+const RendererType RENDERER = DEFERRED;
 
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
-const float SCREEN_DEPTH = 1000.0f;
-const float SCREEN_NEAR = 0.1f;
+const float SCREEN_DEPTH = 200.0f;
+const float SCREEN_NEAR = 1.0f;
 
 const int SHADOWMAP_WIDTH = 2048;
 const int SHADOWMAP_HEIGHT = 2048;
@@ -30,24 +42,31 @@ public:
 	GraphicsClass(const GraphicsClass&);
 	~GraphicsClass();
 
-	bool Initialize(int, int, HWND);
+	HRESULT Initialize(ID3D11Device*, int, int, HWND);
 	void Shutdown();
 	bool Frame();
 
-	D3DClass* m_D3D;
-	bool Render(float DeltaSeconds, CameraClass*, LightClass*, SimpleText*, UINT32, UINT32);
-	void SetRenderable(Gameobject*, ModelClass*);
-	void SetRenderableEmitter(ParticleEmitter*);
-	bool RenderSceneToTexture(LightClass*);
 
+	bool Render(ID3D11DeviceContext*, IDXGISwapChain*, ID3D11RenderTargetView*, ID3D11DepthStencilView*, ID3D11DepthStencilState*, ImVec4, CameraClass*, LightClass*, SimpleText*, UINT32, UINT32, Matrix, Matrix, Matrix);
+	void SetRenderable(Gameobject*, ModelClass*);
+
+	void SetRenderableEmitter(ParticleEmitter*);	bool RenderDepthToTexture(ID3D11DeviceContext*,LightClass*,Matrix);
+	bool RenderSceneToTexture(ID3D11DeviceContext*, LightClass*, CameraClass*, Matrix, Matrix, ID3D11RenderTargetView*, ID3D11DepthStencilView*);
+	void BeginScene(ID3D11DeviceContext*, IDXGISwapChain*, ID3D11RenderTargetView*, ID3D11DepthStencilView*, ImVec4);
+	void EndScene(IDXGISwapChain*);
 	std::vector<Gameobject*> m_GameobjsPool;
 	std::vector<ModelClass*> m_ModelsPool;
 	std::vector<ParticleEmitter*> m_Emitters;
-
-	RenderTextureClass* m_RenderTexture;
+	// Forward
+	RenderTextureClass* m_DepthTexture;	RenderTextureClass* m_RenderTexture;
 	DepthShaderClass* m_DepthShader;
 	ShadowShaderClass* m_ShadowShader;
-
 	ParticleShaderClass* m_ParticleShader;
+
+	//Deferred	
+	OrthoWindowClass* m_FullScreenWindow;
+	DeferredShaderClass* m_DeferredShader;
+	DeferredBuffersClass* m_DeferredBuffers;
+	DeferredPostProcessingClass* m_PostProcessing;
 };
 #endif

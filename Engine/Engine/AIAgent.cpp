@@ -29,21 +29,25 @@ void AIAgent::update(const float currentTime, const float elapsedTime)
 	m_Transform->trs.Translation(Vec3ToVector3(position()));
 }
 
-bool AIAgent::Init(HWND hwnd, std::string model_filename, LPCWSTR texture_filename, Vector3 new_scale, D3DClass* d3d)
+HRESULT AIAgent::Init(HWND hwnd, LPCWSTR model_filename, LPCWSTR texture_filename, Vector3 new_scale, ID3D11Device* d3ddevice)
 {
 	bool result;
-	Gameobject::Init(hwnd, d3d);
+	Gameobject::Init(hwnd, d3ddevice);
 	m_Model = new ModelClass();
 	if (!m_Model)
 	{
-		return false;
+		return E_FAIL;
 	}
+	std::wstring mf = model_filename;
+	std::string str(mf.begin(), mf.end());
 	// Initialize the model.
-	result = m_Model->Initialize(Gameobject::m_D3D->GetDevice(), model_filename, texture_filename);
-	if (!result)
+	result = m_Model->Initialize(d3ddevice, str, texture_filename);
+	if (FAILED(result))
 	{
-		MessageBox(hwnd, L"Could not initialize model.", L"Error", MB_OK);
-		return false;
+		wchar_t pretext[200];
+		swprintf(pretext, 200, L"Could not initialize %s", model_filename);
+		MessageBox(hwnd, model_filename, L"Error", MB_OK);
+		return E_FAIL;
 	}
 	m_Scale = XMMatrixScaling(new_scale.x, new_scale.y, new_scale.z);
 

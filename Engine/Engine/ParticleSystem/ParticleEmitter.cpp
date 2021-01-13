@@ -32,7 +32,7 @@ ParticleEmitter::~ParticleEmitter()
 }
 
 
-bool ParticleEmitter::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, WCHAR* textureFilename, Emitter& EmitterParameters)
+bool ParticleEmitter::Initialize(ID3D11Device* device, WCHAR* textureFilename, Emitter& EmitterParameters)
 {
 	bool result;
 
@@ -46,7 +46,7 @@ bool ParticleEmitter::Initialize(ID3D11Device* device, ID3D11DeviceContext* devi
 	m_EmitterData = EmitterParameters;
 
 	// Create the buffers that will be used to render the particles with.
-	result = InitializeBuffers(device, deviceContext);
+	result = InitializeBuffers(device);
 	if(!result)
 		return false;
 
@@ -78,7 +78,7 @@ int ParticleEmitter::GetIndexCount()
 }
 
 
-bool ParticleEmitter::InitializeBuffers(ID3D11Device* device, ID3D11DeviceContext* deviceContext)
+bool ParticleEmitter::InitializeBuffers(ID3D11Device* device)
 {
 	unsigned int* indices;
 	int i;
@@ -291,8 +291,7 @@ bool ParticleEmitter::LoadTexture(ID3D11Device* device, WCHAR* filename)
 	}
 
 	// Initialize the texture object.
-	result = m_Texture->Initialize(device, filename);
-	if (!result)
+	if (FAILED(m_Texture->Initialize(device, filename)))
 	{
 		return false;
 	}

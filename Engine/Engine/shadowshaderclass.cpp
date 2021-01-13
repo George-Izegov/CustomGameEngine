@@ -3,7 +3,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "shadowshaderclass.h"
 
-
 ShadowShaderClass::ShadowShaderClass()
 {
 	m_vertexShader = 0;
@@ -28,19 +27,19 @@ ShadowShaderClass::~ShadowShaderClass()
 }
 
 
-bool ShadowShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
+HRESULT ShadowShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 {
-	bool result;
-
+	HRESULT result;
 
 	// Initialize the vertex and pixel shaders.
 	result = InitializeShader(device, hwnd, L"../Engine/shadow.vs", L"../Engine/shadow.ps");
-	if (!result)
-	{
-		return false;
-	}
+    if (FAILED(result))
+    {
+        MessageBox(hwnd, L"Could not initialize the ShadowShaderClass.", L"Error", MB_OK);
+        return result;
+    }
 
-	return true;
+	return result;
 }
 
 
@@ -76,7 +75,8 @@ bool ShadowShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCoun
 }
 
 
-bool ShadowShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWSTR vsFilename, LPCWSTR psFilename)
+
+HRESULT ShadowShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWSTR vsFilename, LPCWSTR psFilename)
 {
 	HRESULT result;
 	ID3D10Blob* errorMessage;
@@ -96,8 +96,7 @@ bool ShadowShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWST
 	pixelShaderBuffer = 0;
 
 	// Compile the vertex shader code.
-	result = D3DCompileFromFile(vsFilename, NULL, NULL, "ShadowVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
-		&vertexShaderBuffer, NULL);
+	result = D3DCompileFromFile(vsFilename, NULL, NULL, "ShadowVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, &vertexShaderBuffer, &errorMessage);
 	if (FAILED(result))
 	{
 		// If the shader failed to compile it should have writen something to the error message.
@@ -110,13 +109,12 @@ bool ShadowShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWST
 		{
 			MessageBox(hwnd, vsFilename, L"Missing Shader File", MB_OK);
 		}
-
-		return false;
+		return result;
 	}
 
-	// Compile the pixel shader code.
-	result = D3DCompileFromFile(psFilename, NULL, NULL, "ShadowPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
-		&pixelShaderBuffer, NULL);
+	// Compile the pixel shader code.*/
+	result = D3DCompileFromFile(psFilename, NULL, NULL, "ShadowPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, &pixelShaderBuffer, &errorMessage);
+
 	if (FAILED(result))
 	{
 		// If the shader failed to compile it should have writen something to the error message.
@@ -130,21 +128,21 @@ bool ShadowShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWST
 			MessageBox(hwnd, psFilename, L"Missing Shader File", MB_OK);
 		}
 
-		return false;
+		return result;
 	}
 
 	// Create the vertex shader from the buffer.
 	result = device->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), NULL, &m_vertexShader);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Create the pixel shader from the buffer.
 	result = device->CreatePixelShader(pixelShaderBuffer->GetBufferPointer(), pixelShaderBuffer->GetBufferSize(), NULL, &m_pixelShader);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Create the vertex input layout description.
@@ -180,7 +178,7 @@ bool ShadowShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWST
 		&m_layout);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Release the vertex shader buffer and pixel shader buffer since they are no longer needed.
@@ -209,7 +207,7 @@ bool ShadowShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWST
 	result = device->CreateSamplerState(&samplerDesc, &m_sampleStateWrap);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Create a clamp texture sampler state description.
@@ -221,7 +219,7 @@ bool ShadowShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWST
 	result = device->CreateSamplerState(&samplerDesc, &m_sampleStateClamp);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Setup the description of the dynamic matrix constant buffer that is in the vertex shader.
@@ -236,7 +234,7 @@ bool ShadowShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWST
 	result = device->CreateBuffer(&matrixBufferDesc, NULL, &m_matrixBuffer);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Setup the description of the camera dynamic constant buffer that is in the vertex shader.
@@ -251,7 +249,7 @@ bool ShadowShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWST
 	result = device->CreateBuffer(&cameraBufferDesc, NULL, &m_cameraBuffer);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Setup the description of the light dynamic constant buffer that is in the pixel shader.
@@ -266,7 +264,7 @@ bool ShadowShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWST
 	result = device->CreateBuffer(&lightBufferDesc, NULL, &m_lightBuffer);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
 	// Setup the description of the light dynamic constant buffer that is in the vertex shader.
@@ -281,10 +279,10 @@ bool ShadowShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, LPCWST
 	result = device->CreateBuffer(&lightBufferDesc2, NULL, &m_lightBuffer2);
 	if (FAILED(result))
 	{
-		return false;
+		return result;
 	}
 
-	return true;
+	return result;
 }
 
 

@@ -30,7 +30,7 @@ public:
 	ModelClass();
 	ModelClass(const ModelClass&);
 	~ModelClass();
-	bool Initialize(ID3D11Device*, std::string,LPCWSTR);
+	HRESULT Initialize(ID3D11Device*, std::string,LPCWSTR);
 	void Shutdown();
 	void Frame();
 
@@ -40,11 +40,11 @@ public:
 	int GetIndexCount();
 
 private:
-	bool LoadTexture(ID3D11Device*, LPCWSTR);
+	HRESULT LoadTexture(ID3D11Device*, LPCWSTR);
 	void ReleaseTexture();
 
-	bool LoadModel(std::string path);
-	bool InitializeBuffers(ID3D11Device*);
+	HRESULT LoadModel(std::string);
+	HRESULT InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
 	void RenderBuffers(ID3D11DeviceContext*);
 
