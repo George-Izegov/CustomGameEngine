@@ -29,6 +29,10 @@ static Matrix                   g_pProjectionMatrix;
 static Matrix                   g_pWorldMatrix;
 static Matrix                   g_pOrthoMatrix;
 
+static GraphicsClass*           g_GraphicsClass = NULL;
+static KataVictim*              BoxObj = NULL;
+static KataVictim*              SphereObj = NULL;
+
 // Forward declarations of helper functions
 HRESULT CreateDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
@@ -154,7 +158,7 @@ int main(int, char**)
     }
     
     // Load scene resources
-    if (FAILED(m_Scene->Init(g_pd3dDevice, g_mainRenderTargetView, screenWidth, screenHeight, hwnd)))
+    if (FAILED(m_Scene->Init(g_pd3dDevice, g_mainRenderTargetView, g_GraphicsClass, screenWidth, screenHeight, hwnd)))
     {
         return 0;
     }
@@ -211,33 +215,53 @@ int main(int, char**)
         }
 
         {
+            bool modes_editor = false;
             // Create a window called "My First Too", with a menu bar.
-            ImGui::Begin("My First Too", &my_tool_active, ImGuiWindowFlags_MenuBar);
+            ImGui::Begin("Modes", &modes_editor, ImGuiWindowFlags_MenuBar);
             if (ImGui::BeginMenuBar())
             {
                 if (ImGui::BeginMenu("File"))
                 {
                     if (ImGui::MenuItem("Open..", "Ctrl+O")) { /* Do stuff */ }
                     if (ImGui::MenuItem("Save", "Ctrl+S")) { /* Do stuff */ }
-                    if (ImGui::MenuItem("Close", "Ctrl+W")) { my_tool_active = false; }
+                    if (ImGui::MenuItem("Close", "Ctrl+W")) { modes_editor = false; }
                     ImGui::EndMenu();
                 }
                 ImGui::EndMenuBar();
             }
 
-            // Edit a color (stored as ~4 floats)
-            ImGui::ColorEdit4("Color", (float*)&clear_color);
+            ImGui::Separator();
 
-            // Plot some values
-            const float my_values[] = { 0.2f, 0.1f, 1.0f, 0.5f, 0.9f, 2.2f };
-            ImGui::PlotLines("Frame Times", my_values, IM_ARRAYSIZE(my_values));
+            ImGui::LabelText("label", "Value");
 
-            // Display contents in a scrolling region
-            ImGui::TextColored(ImVec4(1, 1, 0, 1), "Important Stuff");
-            ImGui::BeginChild("Scrolling");
-            for (int n = 0; n < 50; n++)
-                ImGui::Text("%04d: Some text", n);
-            ImGui::EndChild();
+            {
+                // List box
+                const char* items[] = { "Recently Placed", "Basic", "Lights", "Geometry", "Imported" };
+                static int item_current = 1;
+                ImGui::ListBox("", &item_current, items, IM_ARRAYSIZE(items), 4);
+            }
+
+            ImGui::SameLine();
+
+            {
+                ImGui::BeginChild("Scrolling");
+                if (ImGui::Button("Box"))
+                {
+                    BoxObj = new KataVictim;
+                    BoxObj->Init(hwnd, L"Data\\Objects\\m_cube.obj", L"Data\\Objects\\brick.tga", Vector3(4.75f, 4.75f, 4.75f), g_pd3dDevice);
+                    BoxObj->Place(Vector3(rand() % 20 - 1, -0.45f, 0.0f));
+                    g_GraphicsClass->SetRenderable((Gameobject*)BoxObj, BoxObj->m_Model);
+                }
+                if (ImGui::Button("Sphere"))
+                {
+                    SphereObj = new KataVictim;
+                    SphereObj->Init(hwnd, L"Data\\Objects\\sphere.obj", L"Data\\Objects\\moonmap.tga", Vector3(0.75f, 0.75f, 0.75f), g_pd3dDevice);
+                    SphereObj->Place(Vector3(rand() % 30 - 1, -0.35f, 0.0f));
+                    g_GraphicsClass->SetRenderable((Gameobject*)SphereObj, SphereObj->m_Model);
+                }
+                ImGui::EndChild();
+            }
+
             ImGui::End();
         }
 
@@ -285,6 +309,15 @@ int main(int, char**)
     ImGui_ImplDX11_Shutdown();
     ImGui_ImplWin32_Shutdown();
     ImGui::DestroyContext();
+
+    // Delete spawned objects
+    BoxObj->Unload();
+    delete BoxObj;
+    BoxObj = NULL;
+
+    SphereObj->Unload();
+    delete SphereObj;
+    SphereObj = NULL;
 
     CleanupDeviceD3D();
     ::DestroyWindow(hwnd);

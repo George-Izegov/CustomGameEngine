@@ -92,11 +92,12 @@ void Scene::Unload()
 }
 
 //aka start
-HRESULT Scene::Init(ID3D11Device* g_pd3dDevice, ID3D11RenderTargetView* g_mainRenderTargetView, int sWidth, int sHeight, HWND hwnd)
+HRESULT Scene::Init(ID3D11Device* g_pd3dDevice, ID3D11RenderTargetView* g_mainRenderTargetView, GraphicsClass*& graphicsClass, int sWidth, int sHeight, HWND hwnd)
 {
     HRESULT result;
 	m_Graphics = new GraphicsClass;
 	result = m_Graphics->Initialize(g_pd3dDevice, sWidth, sHeight, hwnd);
+	graphicsClass = m_Graphics;
 
 	// Create the camera object.
 	m_Camera = new CameraClass;

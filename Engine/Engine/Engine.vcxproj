@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Владислав\AppData\Local\Programs\Python\Python39\include;C:\Users\Владислав\AppData\Local\Programs\Python\Python39;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Владислав\AppData\Local\Programs\Python\Python39\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\Python39;C:\Program Files\Python39\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Python39\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -81,13 +81,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\Владислав\AppData\Local\Programs\Python\Python39\include;C:\Users\Владислав\AppData\Local\Programs\Python\Python39;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Владислав\AppData\Local\Programs\Python\Python39\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\Python39;C:\Program Files\Python39\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Python39\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\Владислав\AppData\Local\Programs\Python\Python39\include;C:\Users\Владислав\AppData\Local\Programs\Python\Python39;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Владислав\AppData\Local\Programs\Python\Python39\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\Python39;C:\Program Files\Python39\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Python39\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -349,9 +349,9 @@ python39_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets" Condition="Exists('..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets')" />
     <Import Project="..\packages\Assimp.3.0.0\build\native\Assimp.targets" Condition="Exists('..\packages\Assimp.3.0.0\build\native\Assimp.targets')" />
-    <Import Project="..\packages\directxtex_desktop_2017.2021.1.10.2\build\native\directxtex_desktop_2017.targets" Condition="Exists('..\packages\directxtex_desktop_2017.2021.1.10.2\build\native\directxtex_desktop_2017.targets')" />
     <Import Project="..\packages\Microsoft.XAudio2.Redist.1.2.4\build\native\Microsoft.XAudio2.Redist.targets" Condition="Exists('..\packages\Microsoft.XAudio2.Redist.1.2.4\build\native\Microsoft.XAudio2.Redist.targets')" />
     <Import Project="..\packages\directxtk_desktop_2017.2020.11.12.1\build\native\directxtk_desktop_2017.targets" Condition="Exists('..\packages\directxtk_desktop_2017.2020.11.12.1\build\native\directxtk_desktop_2017.targets')" />
+    <Import Project="..\packages\directxtex_desktop_2017.2020.11.12.1\build\native\directxtex_desktop_2017.targets" Condition="Exists('..\packages\directxtex_desktop_2017.2020.11.12.1\build\native\directxtex_desktop_2017.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -359,8 +359,8 @@ python39_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets'))" />
     <Error Condition="!Exists('..\packages\Assimp.3.0.0\build\native\Assimp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Assimp.3.0.0\build\native\Assimp.targets'))" />
-    <Error Condition="!Exists('..\packages\directxtex_desktop_2017.2021.1.10.2\build\native\directxtex_desktop_2017.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_desktop_2017.2021.1.10.2\build\native\directxtex_desktop_2017.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.XAudio2.Redist.1.2.4\build\native\Microsoft.XAudio2.Redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.XAudio2.Redist.1.2.4\build\native\Microsoft.XAudio2.Redist.targets'))" />
     <Error Condition="!Exists('..\packages\directxtk_desktop_2017.2020.11.12.1\build\native\directxtk_desktop_2017.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_desktop_2017.2020.11.12.1\build\native\directxtk_desktop_2017.targets'))" />
+    <Error Condition="!Exists('..\packages\directxtex_desktop_2017.2020.11.12.1\build\native\directxtex_desktop_2017.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_desktop_2017.2020.11.12.1\build\native\directxtex_desktop_2017.targets'))" />
   </Target>
 </Project>
