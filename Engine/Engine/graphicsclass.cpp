@@ -147,9 +147,47 @@ HRESULT GraphicsClass::Initialize(ID3D11Device* g_pd3dDevice, int screenWidth, i
 		return E_FAIL;
 	}
 
+	InitBlendStates(g_pd3dDevice);
+
 	return result;
 }
 
+HRESULT GraphicsClass::InitBlendStates(ID3D11Device* device)
+{
+	HRESULT result;
+	// Create blend states
+	D3D11_BLEND_DESC blendStateDescription;
+	// Clear the blend state description.
+	ZeroMemory(&blendStateDescription, sizeof(D3D11_BLEND_DESC));
+
+	// Create an alpha enabled blend state description.
+	blendStateDescription.RenderTarget[0].BlendEnable = TRUE;
+	blendStateDescription.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blendStateDescription.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blendStateDescription.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blendStateDescription.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blendStateDescription.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	blendStateDescription.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blendStateDescription.RenderTarget[0].RenderTargetWriteMask = 0x0f;
+	blendStateDescription.AlphaToCoverageEnable = true;
+
+	// Create the blend state using the description.
+	result = device->CreateBlendState(&blendStateDescription, &m_alphaEnableBlendingState);
+	if (FAILED(result))
+	{
+		return E_FAIL;
+	}
+
+	// Modify the description to create an alpha disabled blend state description.
+	blendStateDescription.RenderTarget[0].BlendEnable = FALSE;
+
+	// Create the blend state using the description.
+	result = device->CreateBlendState(&blendStateDescription, &m_alphaDisableBlendingState);
+	if (FAILED(result))
+	{
+		return E_FAIL;
+	}
+}
 
 void GraphicsClass::Shutdown()
 {
@@ -429,7 +467,7 @@ bool GraphicsClass::Render(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapCh
 		m_Light->GetViewMatrix(lightViewMatrix);
 		m_Light->GetProjectionMatrix(lightProjectionMatrix);
 
-		//g_pd3dDevice->EnableAlphaBlending();
+		EnableAlphaBlending(g_pd3dDeviceContext);
 	
 		for (UINT i = 0; i < m_Emitters.size(); i++)
 		{
@@ -445,7 +483,7 @@ bool GraphicsClass::Render(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapCh
 				return false;
 		}
 
-		//m_D3D->DisableAlphaBlending();
+		DisableAlphaBlending(g_pd3dDeviceContext);
 
 		for (UINT i = 0; i < m_ModelsPool.size(); i++)
 		{
@@ -467,4 +505,38 @@ bool GraphicsClass::Render(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapCh
 		EndScene(g_pSwapChain);
 		return true;
 	}
+}
+
+void GraphicsClass::EnableAlphaBlending(ID3D11DeviceContext* g_pd3dDeviceContext)
+{
+	float blendFactor[4];
+
+
+	// Setup the blend factor.
+	blendFactor[0] = 0.0f;
+	blendFactor[1] = 0.0f;
+	blendFactor[2] = 0.0f;
+	blendFactor[3] = 0.0f;
+
+	// Turn on the alpha blending.
+	g_pd3dDeviceContext->OMSetBlendState(m_alphaEnableBlendingState, blendFactor, 0xffffffff);
+
+	return;
+}
+
+
+void GraphicsClass::DisableAlphaBlending(ID3D11DeviceContext* g_pd3dDeviceContext)
+{
+	float blendFactor[4];
+
+	// Setup the blend factor.
+	blendFactor[0] = 0.0f;
+	blendFactor[1] = 0.0f;
+	blendFactor[2] = 0.0f;
+	blendFactor[3] = 0.0f;
+
+	// Turn off the alpha blending.
+	g_pd3dDeviceContext->OMSetBlendState(m_alphaDisableBlendingState, blendFactor, 0xffffffff);
+
+	return;
 }

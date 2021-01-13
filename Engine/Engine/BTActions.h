@@ -36,6 +36,7 @@ class MoveOut : public bt::Leaf
     Status update() override
     {
         Vector3 Out = owner->m_Camera->GetPosition();
+        Out.y = 0.0f;
 
         OpenSteer::Vec3 SteeringForce;
 

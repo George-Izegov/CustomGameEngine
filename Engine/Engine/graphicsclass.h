@@ -54,6 +54,11 @@ public:
 	bool RenderSceneToTexture(ID3D11DeviceContext*, LightClass*, CameraClass*, Matrix, Matrix, ID3D11RenderTargetView*, ID3D11DepthStencilView*);
 	void BeginScene(ID3D11DeviceContext*, IDXGISwapChain*, ID3D11RenderTargetView*, ID3D11DepthStencilView*, ImVec4);
 	void EndScene(IDXGISwapChain*);
+
+	HRESULT InitBlendStates(ID3D11Device*);
+	void EnableAlphaBlending(ID3D11DeviceContext* g_pd3dDeviceContext);
+	void DisableAlphaBlending(ID3D11DeviceContext* g_pd3dDeviceContext);
+
 	std::vector<Gameobject*> m_GameobjsPool;
 	std::vector<ModelClass*> m_ModelsPool;
 	std::vector<ParticleEmitter*> m_Emitters;
@@ -68,5 +73,8 @@ public:
 	DeferredShaderClass* m_DeferredShader;
 	DeferredBuffersClass* m_DeferredBuffers;
 	DeferredPostProcessingClass* m_PostProcessing;
+
+	ID3D11BlendState* m_alphaEnableBlendingState;
+	ID3D11BlendState* m_alphaDisableBlendingState;
 };
 #endif
