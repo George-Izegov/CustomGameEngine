@@ -47,7 +47,7 @@ public:
 	bool Frame();
 
 
-	bool Render(ID3D11DeviceContext*, IDXGISwapChain*, ID3D11RenderTargetView*, ID3D11DepthStencilView*, ID3D11DepthStencilState*, ImVec4, CameraClass*, LightClass*, SimpleText*, UINT32, UINT32, Matrix, Matrix, Matrix);
+	bool Render(float DeltaTime, ID3D11DeviceContext*, IDXGISwapChain*, ID3D11RenderTargetView*, ID3D11DepthStencilView*, ID3D11DepthStencilState*, ImVec4, CameraClass*, LightClass*, SimpleText*, UINT32, UINT32, Matrix, Matrix, Matrix);
 	void SetRenderable(Gameobject*, ModelClass*);
 
 	void SetRenderableEmitter(ParticleEmitter*);	bool RenderDepthToTexture(ID3D11DeviceContext*,LightClass*,Matrix);

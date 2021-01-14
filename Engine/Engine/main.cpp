@@ -6,6 +6,7 @@
 #include "backends/imgui_impl_win32.h"
 #include "backends/imgui_impl_dx11.h"
 #include "Scene.h"
+#include "timerclass.h"
 #include <d3d11.h>
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
@@ -29,6 +30,7 @@ static Matrix                   g_pProjectionMatrix;
 static Matrix                   g_pWorldMatrix;
 static Matrix                   g_pOrthoMatrix;
 
+static TimerClass*               g_Timer;
 static GraphicsClass*           g_GraphicsClass = NULL;
 static KataVictim*              BoxObj = NULL;
 static KataVictim*              SphereObj = NULL;
@@ -163,6 +165,9 @@ int main(int, char**)
         return 0;
     }
 
+    g_Timer = new TimerClass;
+    g_Timer->Initialize();
+
     // Main loop
     MSG msg;
     ZeroMemory(&msg, sizeof(msg));
@@ -181,6 +186,8 @@ int main(int, char**)
         }
 
         int axisX = 0, axisY = 0;
+
+        g_Timer->Frame();
 
         // Start the Dear ImGui frame
         ImGui_ImplDX11_NewFrame(screenWidth, screenHeight);
@@ -301,7 +308,7 @@ int main(int, char**)
         g_pSwapChain->Present(0, 0); // Present with vsync
         //g_pSwapChain->Present(0, 0); // Present without vsync
 
-        m_Scene->Update(g_pd3dDeviceContext, g_pSwapChain, g_mainRenderTargetView, g_pDepthStencilView, g_depthStencilState,
+        m_Scene->Update(g_Timer->GetDeltaTime(), g_pd3dDeviceContext, g_pSwapChain, g_mainRenderTargetView, g_pDepthStencilView, g_depthStencilState,
             clear_color, axisX, axisY, g_pProjectionMatrix, g_pWorldMatrix, g_pOrthoMatrix);
     }
 

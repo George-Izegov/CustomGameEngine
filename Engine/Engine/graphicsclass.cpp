@@ -377,7 +377,7 @@ void GraphicsClass::EndScene(IDXGISwapChain* g_pSwapChain)
 	return;
 }
 
-bool GraphicsClass::Render(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapChain* g_pSwapChain, ID3D11RenderTargetView* g_mainRenderTargetView,
+bool GraphicsClass::Render(float DeltaTime, ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapChain* g_pSwapChain, ID3D11RenderTargetView* g_mainRenderTargetView,
 	ID3D11DepthStencilView* g_pDepthStencilView, ID3D11DepthStencilState* depthStencilState, ImVec4 color, CameraClass* m_Camera, LightClass* m_Light, SimpleText* m_SimpleText,
 	UINT32 numberOfUnattachedObjects, UINT32 numberOfAttachedObjects, Matrix g_pProjectionMatrix, Matrix g_pWorldMatrix, Matrix g_pOrthoMatrix)
 {
@@ -424,7 +424,7 @@ bool GraphicsClass::Render(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapCh
 
 			worldMatrix = m_Emitters[i]->GetWorldMatrix();
 			// Render the model using the texture shader.
-			result = m_ParticleShader->Render(1.0f / 60.0f, g_pd3dDeviceContext, m_Emitters[i]->GetIndexCount(), worldMatrix, baseBiewMatrix, g_pProjectionMatrix,
+			result = m_ParticleShader->Render(DeltaTime, g_pd3dDeviceContext, m_Emitters[i]->GetIndexCount(), worldMatrix, baseBiewMatrix, g_pProjectionMatrix,
 				m_Camera->GetPosition(), m_Emitters[i]->GetTexture());
 
 			if (!result)
@@ -496,7 +496,7 @@ bool GraphicsClass::Render(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapCh
 
 			worldMatrix = m_Emitters[i]->GetWorldMatrix();
 			// Render the model using the texture shader.
-			result = m_ParticleShader->Render(1.0f / 60.0f, g_pd3dDeviceContext, m_Emitters[i]->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
+			result = m_ParticleShader->Render(DeltaTime, g_pd3dDeviceContext, m_Emitters[i]->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
 				m_Camera->GetPosition(), m_Emitters[i]->GetTexture());
 
 			if (!result)

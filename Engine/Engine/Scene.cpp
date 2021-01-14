@@ -133,9 +133,9 @@ HRESULT Scene::Init(ID3D11Device* g_pd3dDevice, ID3D11RenderTargetView* g_mainRe
 	m_Graphics->SetRenderable((Gameobject*)m_Katamari, m_Katamari->m_Model);
 
 	m_Katavictim = new KataVictim;
-	result = m_Katavictim->Init(hwnd, L"Data\\Objects\\Item Bag.obj", L"../Engine/moneybag.tga", Vector3(1.75f, 1.75f, 1.75f), g_pd3dDevice);
+	result = m_Katavictim->Init(hwnd, L"Data\\Objects\\house.obj", L"Data\\Objects\\house.tga", Vector3(0.5f, 0.5f, 0.5f), g_pd3dDevice);
 
-	m_Katavictim->Place(Vector3(10.0f, -0.35f, 0.0f));
+	m_Katavictim->Place(Vector3(50.0f, 2.0f, 100.0f));
 	m_Graphics->SetRenderable((Gameobject*)m_Katavictim, m_Katavictim->m_Model);
 
 	m_Katavictim2 = new KataVictim;
@@ -229,13 +229,13 @@ HRESULT Scene::Init(ID3D11Device* g_pd3dDevice, ID3D11RenderTargetView* g_mainRe
 
 	Emitter Smoke;
 
-	Smoke.EmitterPosition = Vector3(0, 0, 0);
+	Smoke.EmitterPosition = Vector3(45, 22, 92);
 	Smoke.ParticleSpawnDeviation = Vector3(2, 2, 2);
 	Smoke.ParticleSize = 5.0f;
 	Smoke.StartVelocity = Vector3(0.0f, 5.0f, 0.0f);
 	Smoke.VelDeviation = Vector3(2.0f, 2.0f, 2.0f);
 	Smoke.ParticlePerSec = 20;
-	Smoke.ParticleColor = Vector4(0.7f, 0.7f, 0.7f, 0.7f);
+	Smoke.ParticleColor = Vector4(0.7f, 0.7f, 0.7f, 0.9f);
 	Smoke.ColorDeviation = Vector4(0.3f, 0.3f, 0.3f, 0.3f);
 	Smoke.EffectedForce = Vector3(0.0f, 10.0f, 0.0f);
 	Smoke.ParticlesLifetime = 5.0f;
@@ -254,7 +254,7 @@ HRESULT Scene::Init(ID3D11Device* g_pd3dDevice, ID3D11RenderTargetView* g_mainRe
 	return result;
 }
 
-bool Scene::Update(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapChain* g_pSwapChain, 
+bool Scene::Update(float DeltaTime, ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapChain* g_pSwapChain, 
 	ID3D11RenderTargetView* g_mainRenderTargetView, ID3D11DepthStencilView* g_pDepthStencilView, 
 	ID3D11DepthStencilState* depthStencilState, ImVec4 color, int axisX, int axisY, Matrix g_pProjectionMatrix, 
 	Matrix g_pWorldMatrix, Matrix g_pOrthoMatrix)
@@ -263,7 +263,7 @@ bool Scene::Update(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapChain* g_p
 	//todo: move to katamari update
 	if (axisX != 0 || axisY != 0) {
 		m_Katamari->Translate(Vector3(axisX, 0.0f, axisY));
-		m_Camera->Follow(m_Katamari->m_Transform->trs, Vector3(5.0f, 10.0f, -25.0f));
+		m_Camera->Follow(m_Katamari->m_Transform->trs, Vector3(0.0f, 9.0f, -25.0f));
 
 		if (m_Katavictim->m_HasParent)
 			m_Katavictim->Update(m_Katamari);
@@ -321,9 +321,9 @@ bool Scene::Update(ID3D11DeviceContext* g_pd3dDeviceContext, IDXGISwapChain* g_p
 	// Update the position of the light.
 	m_Light->SetPosition(lightPositionX, 15.0f, -30.0f);
 
-	m_AISystem->Update(1.0f/60.0f);
+	m_AISystem->Update(DeltaTime);
 
-	m_Graphics->Render(g_pd3dDeviceContext, g_pSwapChain, g_mainRenderTargetView, g_pDepthStencilView, depthStencilState,
+	m_Graphics->Render(DeltaTime, g_pd3dDeviceContext, g_pSwapChain, g_mainRenderTargetView, g_pDepthStencilView, depthStencilState,
 		color, m_Camera, m_Light, m_SimpleText, numberOfUnattachedObjects, numberOfAttachedObjects,
 		g_pProjectionMatrix, g_pWorldMatrix, g_pOrthoMatrix);
 

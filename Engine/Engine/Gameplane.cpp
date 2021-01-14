@@ -50,7 +50,7 @@ HRESULT Gameplane::Init(HWND hwnd, ID3D11Device* g_pd3dDevice)
 		return E_FAIL;
 
 	}
-	m_Scale = XMMatrixScaling(3.75f, 3.75f, 3.75f);
+	m_Scale = XMMatrixScaling(50.0f, 50.0f, 50.0f);
 	m_Translation = XMMatrixTranslation(0.0f, -1.0f, 0.0f);
 	m_Transform->trs = m_Scale * m_Translation;
 

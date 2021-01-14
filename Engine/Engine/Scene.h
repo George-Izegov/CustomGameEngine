@@ -28,7 +28,7 @@ public:
 	virtual void  Unload();
 	//virtual bool  Update(int axisX, int axisY, float DeltaSeconds);
 	HRESULT Init(ID3D11Device*, ID3D11RenderTargetView*, GraphicsClass*&, int, int, HWND);
-	virtual bool Update(ID3D11DeviceContext*, IDXGISwapChain*, ID3D11RenderTargetView*, ID3D11DepthStencilView*, ID3D11DepthStencilState*, ImVec4, int axisX, int axisY, Matrix g_pProjectionMatrix, Matrix g_pWorldMatrix, Matrix g_pOrthoMatrix);
+	virtual bool Update(float DeltaTime, ID3D11DeviceContext*, IDXGISwapChain*, ID3D11RenderTargetView*, ID3D11DepthStencilView*, ID3D11DepthStencilState*, ImVec4, int axisX, int axisY, Matrix g_pProjectionMatrix, Matrix g_pWorldMatrix, Matrix g_pOrthoMatrix);
 
 private:
 	
